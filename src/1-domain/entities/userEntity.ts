@@ -16,3 +16,8 @@ export interface IUserEntity extends ITimestamps, Partial<IUserEntityRelations>{
   tokenRecoverPassword?: string
   tokenRecoverPasswordCreateDate?: Date
 }
+// O Pick constrói um tipo escolhendo o conjunto de propriedades
+export type InputUserEntity = Pick<
+IUserEntity,
+'email' | 'name' | 'password'
+>

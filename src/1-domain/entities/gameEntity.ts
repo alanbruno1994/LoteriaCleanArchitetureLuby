@@ -16,3 +16,9 @@ export interface IGameEntity extends ITimestamps, Partial<IGameEntityRelations>{
   maxNumber: number
   color: string
 }
+
+// O Pick constrói um tipo escolhendo o conjunto de propriedades
+export type InputGameEntity = Pick<
+IGameEntity,
+'type' | 'range' | 'price' | 'maxNumber' | 'color'
+>

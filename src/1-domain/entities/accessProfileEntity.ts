@@ -10,3 +10,9 @@ export interface IAccessProfileEntity extends ITimestamps, Partial<IAccessProfil
   secureId: string
   level: string
 }
+
+// O Pick constrói um tipo escolhendo o conjunto de propriedades
+export type InputAccessProfileEntity = Pick<
+IAccessProfileEntity,
+'level'
+>

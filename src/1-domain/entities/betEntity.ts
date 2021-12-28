@@ -15,3 +15,9 @@ export interface IBetEntity extends ITimestamps, Partial<IBetEntityRelations>{
   priceGame: number
   numbeChoose: string
 }
+
+// O Pick constrói um tipo escolhendo o conjunto de propriedades
+export type InputBetEntity = Pick<
+IBetEntity,
+'priceGame' | 'numbeChoose'
+>
