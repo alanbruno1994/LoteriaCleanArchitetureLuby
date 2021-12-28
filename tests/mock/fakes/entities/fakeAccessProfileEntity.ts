@@ -1,5 +1,5 @@
 import { InputAccessProfileEntity } from '@domain/entities/accessProfileEntity'
 
-export const fakeCreatedBetEntity: InputAccessProfileEntity = {
+export const fakeCreatedAccessProfileEntity: InputAccessProfileEntity = {
   level: 'admin'
 }
