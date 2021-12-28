@@ -3,8 +3,8 @@
  * https://jestjs.io/docs/configuration
  */
 
-export default {
-  roots: ['<rootDir>/src', '<rootDir>/test'], // basicamente serve para definir o diretório raiz
+module.exports = {
+  roots: ['<rootDir>/src', '<rootDir>/tests'], // basicamente serve para definir o diretório raiz
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'], // aqui diz onde estão os arquivos para cobertura de teste
   coverageDirectory: 'coverage',
   testEnvironment: 'node',
