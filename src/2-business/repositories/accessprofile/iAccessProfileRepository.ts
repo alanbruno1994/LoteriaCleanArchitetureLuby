@@ -22,7 +22,7 @@ export interface IInputDeleteAccess{
 // que possua accesso ao banco de dados implemente essa interface
 export interface IAccessProfileRepository {
   create: (
-    inputUserEntity: Omit<AccessProfileEntityKeys, 'id'>,
+    inputUserEntity: Omit<IAccessProfileEntity, 'id'>,
   ) => Promise<IAccessProfileEntity>
   findBy: (
     type: AccessProfileEntityKeys,
