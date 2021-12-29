@@ -37,3 +37,6 @@ export interface IBetRepository {
   findAll: () => Promise<IBetEntity[] | void>
   delete: (input: IInputDeleteBet) => Promise<IBetEntity | void>
 }
+// Isso aqui vai ser usada para que algem injete dinamente
+// uma depencia em tempo de execucao
+export const IBetRepositoryToken = Symbol.for('IBetRepositoryToken')

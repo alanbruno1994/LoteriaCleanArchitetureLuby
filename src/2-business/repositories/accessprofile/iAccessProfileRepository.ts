@@ -33,3 +33,6 @@ export interface IAccessProfileRepository {
   findAll: () => Promise<IAccessProfileEntity[] | void>
   delete: (input: IInputDeleteAccess) => Promise<IAccessProfileEntity | void>
 }
+// Isso aqui vai ser usada para que algem injete dinamente
+// uma depencia em tempo de execucao
+export const IAccessProfileRepositoryToken = Symbol.for('IAccessProfileRepositoryToken')

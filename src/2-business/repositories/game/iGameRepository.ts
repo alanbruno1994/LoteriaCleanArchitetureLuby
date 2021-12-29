@@ -34,3 +34,6 @@ export interface IGameRepository {
   findAll: () => Promise<IGameEntity[] | void>
   delete: (input: IInputDeleteGame) => Promise<IGameEntity | void>
 }
+// Isso aqui vai ser usada para que algem injete dinamente
+// uma depencia em tempo de execucao
+export const IGameRepositoryToken = Symbol.for('IGameRepositoryToken')

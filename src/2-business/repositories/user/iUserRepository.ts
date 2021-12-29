@@ -33,3 +33,6 @@ export interface IUserRepository {
   findAll: () => Promise<IUserEntity[] | void>
   delete: (input: IInputDeleteUser) => Promise<IUserEntity | void>
 }
+// Isso aqui vai ser usada para que algem injete dinamente
+// uma depencia em tempo de execucao
+export const IUserRepositoryToken = Symbol.for('IUserRepositoryToken')
