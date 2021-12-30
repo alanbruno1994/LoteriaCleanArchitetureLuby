@@ -2,6 +2,7 @@
 import { IGameEntity } from '@domain/entities/gameEntity'
 import { IRelation } from '../relation'
 import { IWhere } from '../where'
+import 'reflect-metadata'
 // Isso aqui serve para dizer que tipos de elementos
 // serao usado como uma chave para um consulta de dados
 // por exemplo
