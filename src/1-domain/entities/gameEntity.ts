@@ -11,8 +11,8 @@ export interface IGameEntityRelations { // Aqui serve para definir as relacoes d
 }
 
 export interface IGameEntity extends ITimestamps, Partial<IGameEntityRelations>{
-  id: number | undefined
-  secureId: string | undefined
+  id: number
+  secureId: string
   type: string
   range: number
   price: number
@@ -33,8 +33,8 @@ export class GameEntity extends AbstractEntity<IGameEntity> {
 
     const game = new GameEntity({
       ...props,
-      id: undefined,
-      secureId: undefined,
+      id: 0,
+      secureId: '',
       created_at: currentDate,
       updated_at: currentDate
     })
