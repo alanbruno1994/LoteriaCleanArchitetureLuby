@@ -17,7 +17,7 @@ implements IAbstractUseCase<void, IOutputFindAllBetDto> {
     const bets = await this.betRepository.findAll()
 
     if (!bets) {
-      return left(BetErrors.betFailedToUpdate())
+      return left(BetErrors.betNotLoadedCorrectly())
     }
 
     return right(bets)
