@@ -32,7 +32,7 @@ export interface IUserRepository {
     relations?: Array<IRelation<string, UserEntityKeys>>
   ) => Promise<void | IUserEntity>
   update: (input: IInputUpdateUser) => Promise<Partial<IUserEntity> | void>
-  findAll: () => Promise<IUserEntity[] | void>
+  findAll: () => Promise<Array<Omit<IUserEntity, 'password'>> | void>
   delete: (input: IInputDeleteUser) => Promise<IUserEntity | void>
 }
 // Isso aqui vai ser usada para que algem injete dinamente
