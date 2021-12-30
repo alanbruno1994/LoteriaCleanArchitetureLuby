@@ -1,3 +1,4 @@
+/* eslint-disable no-void */
 import { UserErrors } from '@business/modules/errors/user/userErrors'
 import type {
   IInputFindUserByDto,
