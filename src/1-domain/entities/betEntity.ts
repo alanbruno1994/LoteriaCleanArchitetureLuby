@@ -7,12 +7,12 @@ import { IUserEntity } from './userEntity'
 
 export interface IBetEntityRelations { // Aqui serve para definir as relacoes da entidade
   game: IGameEntity
-  user: IUserEntity
+  user: Omit<IUserEntity, 'password'>
 }
 
 export interface IBetEntity extends ITimestamps, Partial<IBetEntityRelations>{
-  id: number | undefined
-  secureId: string | undefined
+  id: number
+  secureId: string
   userId: number | undefined
   gameId: number | undefined
   priceGame: number
@@ -31,8 +31,8 @@ export class BetEntity extends AbstractEntity<IBetEntity> {
 
     const bet = new BetEntity({
       ...props,
-      id: undefined,
-      secureId: undefined,
+      id: 0,
+      secureId: '',
       userId: undefined,
       gameId: undefined,
       created_at: currentDate,
