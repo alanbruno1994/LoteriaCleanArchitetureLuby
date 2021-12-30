@@ -2,6 +2,8 @@
 import { IUserEntity } from '@domain/entities/userEntity'
 import { IRelation } from '../relation'
 import { IWhere } from '../where'
+import 'reflect-metadata'
+
 // Isso aqui serve para dizer que tipos de elementos
 // serao usado como uma chave para um consulta de dados
 // por exemplo
@@ -14,7 +16,7 @@ export interface IInputUpdateUser {
   updateWhere: IWhere<UserEntityKeys, string | number>
   newData: Partial<IUserEntity>
 }
-
+// Isso aqui vai ser usado na interface repository
 export interface IInputDeleteUser {
   key: UserEntityKeys
   value: string | number

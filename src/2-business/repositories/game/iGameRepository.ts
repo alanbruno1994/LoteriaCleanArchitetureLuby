@@ -13,7 +13,7 @@ export interface IInputUpdateGame {
   updateWhere: IWhere<GameEntityKeys, string | number>
   newData: Partial<IGameEntity>
 }
-
+// Isso aqui vai ser usado na interface repository
 export interface IInputDeleteGame{
   key: GameEntityKeys
   value: string | number

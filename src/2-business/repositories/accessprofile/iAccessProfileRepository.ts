@@ -13,7 +13,7 @@ export interface IInputUpdateAccess {
   updateWhere: IWhere<AccessProfileEntityKeys, string | number>
   newData: Partial<IAccessProfileEntity>
 }
-
+// Isso aqui vai ser usado na interface repository
 export interface IInputDeleteAccess{
   key: AccessProfileEntityKeys
   value: string | number

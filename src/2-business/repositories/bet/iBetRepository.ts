@@ -15,6 +15,7 @@ export interface IInputUpdateBet {
   newData: Partial<IBetEntity>
 }
 
+// Isso aqui vai ser usado na interface repository
 export interface IInputDeleteBet {
   key: BetEntityKeys
   value: string | number
