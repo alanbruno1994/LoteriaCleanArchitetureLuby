@@ -10,14 +10,14 @@ export interface IUserEntityRelations { // Aqui serve para definir as relacoes d
 
 // Esse Partial inda os atributos sao opcionais
 export interface IUserEntity extends ITimestamps, Partial<IUserEntityRelations>{
-  id: number | undefined
+  id: number
   secureId: string | undefined
   email: string
   name: string
   password: string
   accessProfileId: number | undefined
   tokenRecoverPassword?: string
-  tokenRecoverPasswordCreateDate?: Date
+  tokenRecoverPasswordCreateDate?: Date | undefined
 }
 // O Pick constrói um tipo escolhendo o conjunto de propriedades
 export type InputUserEntity = Pick<
@@ -31,7 +31,7 @@ export class UserEntity extends AbstractEntity<IUserEntity> {
 
     const user = new UserEntity({
       ...props,
-      id: undefined,
+      id: 0,
       secureId: undefined,
       accessProfileId: undefined,
       created_at: currentDate,
