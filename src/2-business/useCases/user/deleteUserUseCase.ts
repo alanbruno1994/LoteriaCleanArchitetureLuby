@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { IOutputDeleteUserDto } from '@business/dto/user/delete'
 import { UserErrors } from '@business/modules/errors/user/userErrors'
 import { IInputDeleteUser, IUserRepository, IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
@@ -17,7 +18,7 @@ implements IAbstractUseCase<IInputDeleteUser, IOutputDeleteUserDto> {
       key: input.key,
       value: input.value
     })
-    if (userToDelete == null) {
+    if (!userToDelete) {
       return left(UserErrors.userFailedToDelete())
     }
 
