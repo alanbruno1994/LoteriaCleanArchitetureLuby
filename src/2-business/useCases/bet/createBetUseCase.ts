@@ -1,14 +1,11 @@
 import { inject, injectable } from 'inversify'
-import {
-  IUserRepositoryToken
-} from '@root/src/2-business/repositories/user/iUserRepository'
 import { left, right } from '@shared/either'
 import {
   IUniqueIdentifierService,
   IUniqueIdentifierServiceToken
 } from '@root/src/2-business/services/uniqueIdentifier/iUniqueIdentifier'
 import { IAbstractUseCase } from '../abstractUseCase'
-import { IBetRepository } from '@business/repositories/bet/iBetRepository'
+import { IBetRepository, IBetRepositoryToken } from '@business/repositories/bet/iBetRepository'
 import { BetEntity } from '@domain/entities/betEntity'
 import { IInputCreateBetDto, IOutputCreateBetDto } from '@business/dto/bet/create'
 import { BetErrors } from '@business/modules/errors/bet/betErrors'
@@ -19,7 +16,7 @@ implements IAbstractUseCase<IInputCreateBetDto, IOutputCreateBetDto> {
   // @inject e usado para faz as injecoes dinamicas, ou seja, em tempo de
   // execucao.
   constructor (
-    @inject(IUserRepositoryToken) private readonly betRepository: IBetRepository,
+    @inject(IBetRepositoryToken) private readonly betRepository: IBetRepository,
     @inject(IUniqueIdentifierServiceToken)
     private readonly uniqueIdentifierService: IUniqueIdentifierService
   ) {}
