@@ -61,4 +61,16 @@ export class AccessProfileErrors extends IError {
     })
     return access
   }
+
+  static accessProfileLevelAlreadyInUse (): IError {
+    const userErrors = new AccessProfileErrors({
+      statusCode: 400,
+      body: {
+        code: 'AP-006',
+        message: 'This level is already in use, please use another',
+        shortMessage: 'levelUsedFailed'
+      }
+    })
+    return userErrors
+  }
 }

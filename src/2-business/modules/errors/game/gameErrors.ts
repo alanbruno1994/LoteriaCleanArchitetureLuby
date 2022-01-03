@@ -61,4 +61,16 @@ export class GameErrors extends IError {
     })
     return gameErrors
   }
+
+  static gameTypeAlreadyInUse (): IError {
+    const userErrors = new GameErrors({
+      statusCode: 400,
+      body: {
+        code: 'UE-002',
+        message: 'This type is already in use, please use another',
+        shortMessage: 'emailUsedFailed'
+      }
+    })
+    return userErrors
+  }
 }
