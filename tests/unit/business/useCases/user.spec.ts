@@ -12,7 +12,7 @@ import { FindAllUsersUseCase } from '@business/useCases/user/findAllUsersUseCase
 import { FindUserByUseCase } from '@business/useCases/user/findUserByUseCase'
 import { UpdateUserUseCase } from '@business/useCases/user/updateUserUseCase'
 import { container } from '@shared/ioc/container'
-import { fakeNewUser, fakeUserEntity, fakeUsersList } from '@tests/mock/fakes/entities/fakeUserEntity'
+import { fakeNewUser, fakeUserEntityAdmin, fakeUsersList } from '@tests/mock/fakes/entities/fakeUserEntity'
 import { FakeUserRepository, fakeUserRepositoryDelete, fakeUserRepositoryFindAll, fakeUserRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeUserRepository'
 import { FakeHasherService, fakeHasherServiceCreate } from '@tests/mock/fakes/services/fakeHasherService'
 import { FakeUniqueIdentifierService } from '@tests/mock/fakes/services/fakeUniqueIdentifierService'
@@ -85,11 +85,11 @@ describe('User use cases', () => {
     test('Should return user if it exists', async () => {
       const userFindByUseCase = container.get(FindUserByUseCase)
 
-      fakeUserRepositoryFindBy.mockImplementation(async () => fakeUserEntity)
+      fakeUserRepositoryFindBy.mockImplementation(async () => fakeUserEntityAdmin)
 
       const userResult = await userFindByUseCase.exec({
         key: 'email',
-        value: fakeUserEntity.email
+        value: fakeUserEntityAdmin.email
       })
 
       expect(userResult.isLeft()).toBeFalsy()
@@ -123,15 +123,15 @@ describe('User use cases', () => {
 
     test('Should return user updated if repository.update returns user', async () => {
       const updateRepository = container.get(UpdateUserUseCase)
-      mockUserUpdate.mockImplementationOnce(async () => fakeUserEntity)
-      const userUpdated = await updateRepository.exec(fakeUserEntity, {
+      mockUserUpdate.mockImplementationOnce(async () => fakeUserEntityAdmin)
+      const userUpdated = await updateRepository.exec(fakeUserEntityAdmin, {
         column: 'id',
         value: ''
       })
       expect(userUpdated.isLeft()).toBeFalsy()
 
       if (userUpdated.isRight()) {
-        expect(userUpdated.value.updated_at).not.toBe(fakeUserEntity.updated_at)
+        expect(userUpdated.value.updated_at).not.toBe(fakeUserEntityAdmin.updated_at)
       }
 
       expect.assertions(2)
@@ -139,7 +139,7 @@ describe('User use cases', () => {
 
     test('Should throws user not found error if repository.update returns void', async () => {
       const updateRepository = container.get(UpdateUserUseCase)
-      const userUpdated = await updateRepository.exec(fakeUserEntity, {
+      const userUpdated = await updateRepository.exec(fakeUserEntityAdmin, {
         column: 'id',
         value: ''
       })
@@ -164,7 +164,7 @@ describe('User use cases', () => {
         throw new Error()
       })
 
-      const userUpdated = await updateRepository.exec(fakeUserEntity, {
+      const userUpdated = await updateRepository.exec(fakeUserEntityAdmin, {
         column: 'id',
         value: ''
       })
@@ -184,14 +184,14 @@ describe('User use cases', () => {
 
     test('Should not update user password if its undefined', async () => {
       const updateRepository = container.get(UpdateUserUseCase)
-      mockUserUpdate.mockImplementationOnce(async () => fakeUserEntity)
+      mockUserUpdate.mockImplementationOnce(async () => fakeUserEntityAdmin)
 
       const createHash = jest.fn()
 
       fakeHasherServiceCreate.mockImplementation(createHash)
 
       const userUpdated = await updateRepository.exec(
-        { ...fakeUserEntity, password: undefined },
+        { ...fakeUserEntityAdmin, password: undefined },
         {
           column: 'id',
           value: ''
@@ -203,14 +203,14 @@ describe('User use cases', () => {
 
     test('Should hash user password if its truthy', async () => {
       const updateRepository = container.get(UpdateUserUseCase)
-      mockUserUpdate.mockImplementationOnce(async () => fakeUserEntity)
+      mockUserUpdate.mockImplementationOnce(async () => fakeUserEntityAdmin)
 
       const createHash = jest.fn()
 
       fakeHasherServiceCreate.mockImplementation(createHash)
 
       const userUpdated = await updateRepository.exec(
-        { ...fakeUserEntity, password: 'newPassword' },
+        { ...fakeUserEntityAdmin, password: 'newPassword' },
         {
           column: 'id',
           value: ''
@@ -225,17 +225,17 @@ describe('User use cases', () => {
     test('Should delete a user', async () => {
       const operator = container.get(DeleteUserUseCase)
       fakeUserRepositoryDelete.mockImplementationOnce(
-        async () => fakeUserEntity
+        async () => fakeUserEntityAdmin
       )
 
       const deletedRole = await operator.exec({
         key: 'id',
-        value: fakeUserEntity.id
+        value: fakeUserEntityAdmin.id
       })
 
       expect(deletedRole.isLeft()).toBeFalsy()
       if (deletedRole.isRight()) {
-        expect(deletedRole.value).toStrictEqual(fakeUserEntity)
+        expect(deletedRole.value).toStrictEqual(fakeUserEntityAdmin)
       }
 
       expect.assertions(2)
@@ -246,7 +246,7 @@ describe('User use cases', () => {
 
       const deletedUser = await operator.exec({
         key: 'id',
-        value: fakeUserEntity.id
+        value: fakeUserEntityAdmin.id
       })
 
       expect(deletedUser.isRight()).toBeFalsy()
