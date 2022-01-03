@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable no-void */
 import { IInputFindGameByDto, IOutputFindGameByDto } from '@business/dto/game/findBy'
 import { GameErrors } from '@business/modules/errors/game/gameErrors'
@@ -16,7 +17,7 @@ implements IAbstractUseCase<IInputFindGameByDto, IOutputFindGameByDto> {
   async exec (input: IInputFindGameByDto): Promise<IOutputFindGameByDto> {
     const game = await this.gameRepository.findBy(input.key, input.value)
 
-    if (game == null) {
+    if (!game) {
       return left(GameErrors.gameNotFound())
     }
 
