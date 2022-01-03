@@ -13,8 +13,8 @@ export interface IBetEntityRelations { // Aqui serve para definir as relacoes da
 export interface IBetEntity extends ITimestamps, Partial<IBetEntityRelations>{
   id: number
   secureId: string
-  userId: number | undefined
-  gameId: number | undefined
+  userId: number
+  gameId: number
   priceGame: number
   numbeChoose: string
 }
@@ -33,8 +33,8 @@ export class BetEntity extends AbstractEntity<IBetEntity> {
       ...props,
       id: 0,
       secureId: '',
-      userId: undefined,
-      gameId: undefined,
+      userId: 0,
+      gameId: 0,
       created_at: currentDate,
       updated_at: currentDate
     })
