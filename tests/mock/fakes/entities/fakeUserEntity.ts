@@ -14,7 +14,25 @@ export const fakeNewUser: IInputCreateUserDto = {
   accessProfileId: 0
 }
 
-export const fakeUserEntity: IUserEntity = {
+export const fakeUserEntityPlayer: IUserEntity = {
+  ...fakeCreatedUserEntity,
+  id: 1,
+  accessProfileId: 2,
+  tokenRecoverPassword: '',
+  tokenRecoverPasswordCreateDate: undefined,
+  secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',
+  access: {
+    id: 1,
+    level: 'player',
+    secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017f',
+    created_at: new Date(),
+    updated_at: new Date()
+  },
+  created_at: new Date(),
+  updated_at: new Date()
+}
+
+export const fakeUserEntityAdmin: IUserEntity = {
   ...fakeCreatedUserEntity,
   id: 1,
   accessProfileId: 1,
