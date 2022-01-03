@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "class-validator": "^0.13.2",
     "git-commit-msg-linter": "^3.2.8",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13"
