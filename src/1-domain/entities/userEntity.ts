@@ -11,11 +11,11 @@ export interface IUserEntityRelations { // Aqui serve para definir as relacoes d
 // Esse Partial inda os atributos sao opcionais
 export interface IUserEntity extends ITimestamps, Partial<IUserEntityRelations>{
   id: number
-  secureId: string | undefined
+  secureId: string
   email: string
   name: string
   password: string
-  accessProfileId: number | undefined
+  accessProfileId: number
   tokenRecoverPassword?: string
   tokenRecoverPasswordCreateDate?: Date | undefined
 }
@@ -32,8 +32,8 @@ export class UserEntity extends AbstractEntity<IUserEntity> {
     const user = new UserEntity({
       ...props,
       id: 0,
-      secureId: undefined,
-      accessProfileId: undefined,
+      secureId: '',
+      accessProfileId: 0,
       created_at: currentDate,
       updated_at: currentDate
     })
