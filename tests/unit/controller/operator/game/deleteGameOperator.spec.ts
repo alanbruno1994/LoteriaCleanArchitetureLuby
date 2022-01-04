@@ -3,7 +3,7 @@ import { IGameRepositoryToken } from '@business/repositories/game/iGameRepositor
 import { DeleteGameUseCase } from '@business/useCases/game/deleteGameUseCase'
 import { FindGameByUseCase } from '@business/useCases/game/findGameByUseCase'
 import { DeleteGameOperator } from '@controller/operations/game/deleteGame'
-import { InputDeleteGame } from '@controller/serializers/game/inputDeleteUser'
+import { InputDeleteGame } from '@controller/serializers/game/inputDeleteGame'
 import { container } from '@shared/ioc/container'
 import { fakeGameEntity } from '@tests/mock/fakes/entities/fakeGameEntity'
 import { FakeGameRepository, fakeGameRepositoryDelete, fakeGameRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeGameRepository'
