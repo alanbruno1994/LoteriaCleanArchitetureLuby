@@ -1,5 +1,5 @@
 import { InputUpdateGameDto } from '@business/dto/game/update'
-import { IsString, MinLength, IsNumber, IsOptional } from 'class-validator'
+import { IsString, MinLength, IsNumber, IsOptional, Min } from 'class-validator'
 import { AbstractSerializer } from '../abstractSerializer'
 
 export class InputUpdateGame extends AbstractSerializer<InputUpdateGameDto> {
@@ -10,14 +10,17 @@ export class InputUpdateGame extends AbstractSerializer<InputUpdateGameDto> {
 
   @IsNumber()
   @IsOptional()
+  @Min(1)
   range?: number
 
   @IsNumber()
   @IsOptional()
+  @Min(0)
   price?: number
 
   @IsNumber()
   @IsOptional()
+  @Min(1)
   maxNumber?: number
 
   @IsString()
