@@ -45,7 +45,7 @@ IOutputUpdateBetDto
         value: input.userId
       })
 
-      if (isUserAlreadyRegistered.isRight()) {
+      if (isUserAlreadyRegistered.isLeft()) {
         return left(UserErrors.userNotFound())
       }
     }
@@ -55,7 +55,7 @@ IOutputUpdateBetDto
         value: input.gameId
       })
 
-      if (isGameAlreadyRegistered.isRight()) {
+      if (isGameAlreadyRegistered.isLeft()) {
         return left(GameErrors.gameNotFound())
       }
     }
