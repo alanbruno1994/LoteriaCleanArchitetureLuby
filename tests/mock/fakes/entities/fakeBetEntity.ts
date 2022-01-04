@@ -56,7 +56,7 @@ export const fakeBetsList: IBetEntity[] = [
     updated_at: new Date('2021-09-21T10:00:00.000Z')
   },
   {
-    id: 1,
+    id: 2,
     priceGame: 2.5,
     numbeChoose: '03,12,20,35,40,55',
     gameId: 1,
@@ -66,7 +66,7 @@ export const fakeBetsList: IBetEntity[] = [
     updated_at: new Date('2021-09-21T10:00:00.000Z')
   },
   {
-    id: 1,
+    id: 3,
     priceGame: 2.5,
     numbeChoose: '03,12,20,35,44,50',
     gameId: 1,
@@ -76,7 +76,7 @@ export const fakeBetsList: IBetEntity[] = [
     updated_at: new Date('2021-09-21T10:00:00.000Z')
   },
   {
-    id: 1,
+    id: 4,
     priceGame: 2.5,
     numbeChoose: '33,12,20,35,40,50',
     gameId: 1,
