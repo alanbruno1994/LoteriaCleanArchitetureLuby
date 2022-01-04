@@ -1,6 +1,5 @@
 import { IOutputFindAllGameDto } from '@business/dto/game/findAll'
 import { FindAllGamesUseCase } from '@business/useCases/game/findAllGameUseCase'
-import { FindAllUsersUseCase } from '@business/useCases/user/findAllUsersUseCase'
 import { left, right } from '@shared/either'
 import { inject, injectable } from 'inversify'
 import { AbstractOperator } from '../abstractOperator'
@@ -11,7 +10,7 @@ void,
 IOutputFindAllGameDto
 > {
   constructor (
-    @inject(FindAllUsersUseCase)
+    @inject(FindAllGamesUseCase)
     private readonly findAllGamesUseCase: FindAllGamesUseCase
   ) {
     super()

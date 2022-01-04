@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { IOutputUpdateGameDto } from '@business/dto/game/update'
-import { UserErrors } from '@business/modules/errors/user/userErrors'
+import { GameErrors } from '@business/modules/errors/game/gameErrors'
 import { FindGameByUseCase } from '@business/useCases/game/findGameByUseCase'
 import { UpdateGameUseCase } from '@business/useCases/game/updateGameUseCase'
 import { InputUpdateGame } from '@controller/serializers/game/inputUpdateGame'
@@ -30,7 +30,7 @@ IOutputUpdateGameDto
     })
 
     if (existentGame.isLeft()) {
-      return left(UserErrors.userNotFound())
+      return left(GameErrors.gameNotFound())
     }
 
     const gameUpdated = await this.updateGameUseCase.exec(
