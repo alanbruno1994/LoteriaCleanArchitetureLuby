@@ -3,7 +3,7 @@ import { Either } from '@shared/either'
 import { IError } from '@shared/iError'
 
 export interface IInputDeleteAccessProfileDto {
-  secureId: string
+  secure_id: string
 }
 
 export type IOutputDeleteAccessProfileDto = Either<IError, IAccessProfileEntity>

@@ -49,10 +49,10 @@ describe('Create bet operator', () => {
 
   test('Should create a bet', async () => {
     const inputCreateBet = new InputCreateBet({
-      userId: 1,
-      gameId: 1,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: 2.5
+      user_id: 1,
+      game_id: 1,
+      number_choose: '03,12,20,35,40,50',
+      price_game: 2.5
     })
 
     fakeBetRepositoryCreate.mockImplementationOnce(async () => fakeBetEntity)
@@ -64,18 +64,18 @@ describe('Create bet operator', () => {
     expect(bet.isLeft()).toBeFalsy()
     expect(bet.isRight()).toBeTruthy()
     if (bet.isRight()) {
-      expect(bet.value.gameId).toBe(1)
-      expect(bet.value.userId).toBe(1)
+      expect(bet.value.game_id).toBe(1)
+      expect(bet.value.user_id).toBe(1)
     }
     expect.assertions(4)
   })
 
-  test('Should not create a bet with invalid gameId', async () => {
+  test('Should not create a bet with invalid game_id', async () => {
     const inputCreateBet = new InputCreateBet({
-      userId: 1,
-      gameId: 0,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: 2.5
+      user_id: 1,
+      game_id: 0,
+      number_choose: '03,12,20,35,40,50',
+      price_game: 2.5
     })
 
     try {
@@ -87,12 +87,12 @@ describe('Create bet operator', () => {
     expect.assertions(1)
   })
 
-  test('Should not create a bet with invalid userId', async () => {
+  test('Should not create a bet with invalid user_id', async () => {
     const inputCreateBet = new InputCreateBet({
-      userId: 0,
-      gameId: 1,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: 2.5
+      user_id: 0,
+      game_id: 1,
+      number_choose: '03,12,20,35,40,50',
+      price_game: 2.5
     })
 
     try {
@@ -106,10 +106,10 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet with invalid numberChoose', async () => {
     const inputCreateBet = new InputCreateBet({
-      userId: 1,
-      gameId: 1,
-      numbeChoose: '',
-      priceGame: 2.5
+      user_id: 1,
+      game_id: 1,
+      number_choose: '',
+      price_game: 2.5
     })
 
     try {
@@ -121,12 +121,12 @@ describe('Create bet operator', () => {
     expect.assertions(1)
   })
 
-  test('Should not create a bet with invalid priceGame', async () => {
+  test('Should not create a bet with invalid price_game', async () => {
     const inputCreateBet = new InputCreateBet({
-      userId: 1,
-      gameId: 1,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: -2.5
+      user_id: 1,
+      game_id: 1,
+      number_choose: '03,12,20,35,40,50',
+      price_game: -2.5
     })
 
     try {
@@ -140,10 +140,10 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet with an unexistent user', async () => {
     const inputCreateBet = new InputCreateBet({
-      userId: 1,
-      gameId: 1,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: 2.5
+      user_id: 1,
+      game_id: 1,
+      number_choose: '03,12,20,35,40,50',
+      price_game: 2.5
     })
     fakeUserRepositoryFindBy.mockImplementation(async () => void 0)
     fakeGameRepositoryFindBy.mockImplementation(async () => fakeGameEntity)
@@ -160,10 +160,10 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet with an unexistent game', async () => {
     const inputCreateBet = new InputCreateBet({
-      userId: 1,
-      gameId: 1,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: 2.5
+      user_id: 1,
+      game_id: 1,
+      number_choose: '03,12,20,35,40,50',
+      price_game: 2.5
     })
     fakeUserRepositoryFindBy.mockImplementation(async () => fakeUserEntityPlayer)
     fakeGameRepositoryFindBy.mockImplementation(async () => void 0)
@@ -180,10 +180,10 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet if bet repository create method throws', async () => {
     const inputCreateBet = new InputCreateBet({
-      userId: 1,
-      gameId: 1,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: 2.5
+      user_id: 1,
+      game_id: 1,
+      number_choose: '03,12,20,35,40,50',
+      price_game: 2.5
     })
     fakeUserRepositoryFindBy.mockImplementation(async () => fakeUserEntityPlayer)
     fakeGameRepositoryFindBy.mockImplementation(async () => fakeGameEntity)

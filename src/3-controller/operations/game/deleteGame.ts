@@ -24,8 +24,8 @@ IOutputDeleteGameDto
   ): Promise<IOutputDeleteGameDto> {
     await this.exec(input)
     const gameForDeletion = await this.findGameByUseCase.exec({
-      key: 'secureId',
-      value: input.secureId
+      key: 'secure_id',
+      value: input.secure_id
     })
 
     if (gameForDeletion.isLeft()) {

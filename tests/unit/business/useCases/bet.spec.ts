@@ -52,10 +52,10 @@ describe('Bet use cases', () => {
       expect(betEntity.isRight()).toBeTruthy()
 
       if (betEntity.isRight()) {
-        expect(betEntity.value.numbeChoose).toBe(fakeNewBet.numbeChoose)
-        expect(betEntity.value.priceGame).toBe(fakeNewBet.priceGame)
-        expect(betEntity.value.gameId).toBe(fakeNewBet.gameId)
-        expect(betEntity.value.userId).toBe(fakeNewBet.userId)
+        expect(betEntity.value.number_choose).toBe(fakeNewBet.number_choose)
+        expect(betEntity.value.price_game).toBe(fakeNewBet.price_game)
+        expect(betEntity.value.game_id).toBe(fakeNewBet.game_id)
+        expect(betEntity.value.user_id).toBe(fakeNewBet.user_id)
       }
 
       expect.assertions(6)
@@ -88,8 +88,8 @@ describe('Bet use cases', () => {
       fakeBetRepositoryFindBy.mockImplementation(async () => fakeBetEntity)
 
       const betResult = await betFindByUseCase.exec({
-        key: 'secureId',
-        value: fakeBetEntity.secureId
+        key: 'secure_id',
+        value: fakeBetEntity.secure_id
       })
 
       expect(betResult.isLeft()).toBeFalsy()
@@ -102,7 +102,7 @@ describe('Bet use cases', () => {
       fakeBetRepositoryFindBy.mockImplementation(async () => void 0)
 
       const betResult = await betRepository.exec({
-        key: 'secureId',
+        key: 'secure_id',
         value: 'Not Exists'
       })
 

@@ -45,7 +45,7 @@ IOutputCreateUserDto
 
     const userResult = await this.createUserUseCase.exec({
       ...input,
-      accessProfileId: access.value.id
+      access_profile_id: access.value.id
     })
 
     if (userResult.isLeft()) {

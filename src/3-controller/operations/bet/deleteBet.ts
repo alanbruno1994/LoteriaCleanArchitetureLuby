@@ -24,8 +24,8 @@ IOutputDeleteBetDto
   ): Promise<IOutputDeleteBetDto> {
     await this.exec(input)
     const betForDeletion = await this.findBetByUseCase.exec({
-      key: 'secureId',
-      value: input.secureId
+      key: 'secure_id',
+      value: input.secure_id
     })
 
     if (betForDeletion.isLeft()) {

@@ -25,10 +25,10 @@ implements IAbstractUseCase<IInputCreateBetDto, IOutputCreateBetDto> {
     const createBet = BetEntity.create(input)
     const user = {
       ...createBet.value.export(),
-      secureId: this.uniqueIdentifierService.create()
+      secure_id: this.uniqueIdentifierService.create()
     }
     try {
-      const betEntity = await this.betRepository.create(user, input.userId, input.gameId)
+      const betEntity = await this.betRepository.create(user, input.user_id, input.game_id)
 
       return right(betEntity)
     } catch (error) {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { IOutputUpdateAccessProfileDto } from '@business/dto/access/update'
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
@@ -21,12 +22,12 @@ IOutputUpdateAccessProfileDto
   }
 
   async run (
-    input: InputUpdateAccessProfile, secureId: string
+    input: InputUpdateAccessProfile, secure_id: string
   ): Promise<IOutputUpdateAccessProfileDto> {
     this.exec(input)
     const existentAccess = await this.findAccessProfileByUseCase.exec({
-      key: 'secureId',
-      value: secureId
+      key: 'secure_id',
+      value: secure_id
     })
 
     if (existentAccess.isLeft()) {

@@ -48,14 +48,14 @@ describe('Update access profile operator', () => {
     expect(access.isLeft()).toBeFalsy()
 
     if (access.isRight()) {
-      expect(access.value.priceGame).toBe(2.5)
+      expect(access.value.price_game).toBe(2.5)
     }
 
     expect.assertions(2)
   })
 
-  test('Should update a access using userId and gameId', async () => {
-    const inputUpdateBet = new InputUpdateBet({ ...fakeCreatedBetEntity, userId: 1, gameId: 1 })
+  test('Should update a access using user_id and game_id', async () => {
+    const inputUpdateBet = new InputUpdateBet({ ...fakeCreatedBetEntity, user_id: 1, game_id: 1 })
     const operator = container.get(UpdateBetOperator)
     fakeBetRepositoryFindBy.mockImplementationOnce(
       async () => fakeBetEntity
@@ -73,7 +73,7 @@ describe('Update access profile operator', () => {
     expect(access.isLeft()).toBeFalsy()
 
     if (access.isRight()) {
-      expect(access.value.priceGame).toBe(2.5)
+      expect(access.value.price_game).toBe(2.5)
     }
 
     expect.assertions(2)
@@ -99,7 +99,7 @@ describe('Update access profile operator', () => {
   // })
 
   test('Should not update a access with invalid numberChoose', async () => {
-    const inputUpdateBet = new InputUpdateBet({ numbeChoose: '', priceGame: 2.5 })
+    const inputUpdateBet = new InputUpdateBet({ number_choose: '', price_game: 2.5 })
 
     try {
       const operator = container.get(UpdateBetOperator)
@@ -110,8 +110,8 @@ describe('Update access profile operator', () => {
     expect.assertions(1)
   })
 
-  test('Should not update a access with invalid priceGame', async () => {
-    const inputUpdateBet = new InputUpdateBet({ numbeChoose: '32,45,50,51,32,40', priceGame: -2.5 })
+  test('Should not update a access with invalid price_game', async () => {
+    const inputUpdateBet = new InputUpdateBet({ number_choose: '32,45,50,51,32,40', price_game: -2.5 })
 
     try {
       const operator = container.get(UpdateBetOperator)
@@ -122,8 +122,8 @@ describe('Update access profile operator', () => {
     expect.assertions(1)
   })
 
-  test('Should not update a access with invalid userId', async () => {
-    const inputUpdateBet = new InputUpdateBet({ numbeChoose: '32,45,50,51,32,40', priceGame: 2.5, userId: 0 })
+  test('Should not update a access with invalid user_id', async () => {
+    const inputUpdateBet = new InputUpdateBet({ number_choose: '32,45,50,51,32,40', price_game: 2.5, user_id: 0 })
 
     try {
       const operator = container.get(UpdateBetOperator)
@@ -134,8 +134,8 @@ describe('Update access profile operator', () => {
     expect.assertions(1)
   })
 
-  test('Should not update a access with invalid gameId', async () => {
-    const inputUpdateBet = new InputUpdateBet({ numbeChoose: '32,45,50,51,32,40', priceGame: 2.5, gameId: 0 })
+  test('Should not update a access with invalid game_id', async () => {
+    const inputUpdateBet = new InputUpdateBet({ number_choose: '32,45,50,51,32,40', price_game: 2.5, game_id: 0 })
 
     try {
       const operator = container.get(UpdateBetOperator)
@@ -148,10 +148,10 @@ describe('Update access profile operator', () => {
 
   test('Should not update a bet with an unexistent user', async () => {
     const inputCreateBet = new InputUpdateBet({
-      userId: 1,
-      gameId: 1,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: 2.5
+      user_id: 1,
+      game_id: 1,
+      number_choose: '03,12,20,35,40,50',
+      price_game: 2.5
     })
     fakeBetRepositoryFindBy.mockImplementationOnce(
       async () => fakeBetEntity
@@ -171,10 +171,10 @@ describe('Update access profile operator', () => {
 
   test('Should not update a bet with an unexistent game', async () => {
     const inputCreateBet = new InputUpdateBet({
-      userId: 1,
-      gameId: 1,
-      numbeChoose: '03,12,20,35,40,50',
-      priceGame: 2.5
+      user_id: 1,
+      game_id: 1,
+      number_choose: '03,12,20,35,40,50',
+      price_game: 2.5
     })
     fakeBetRepositoryFindBy.mockImplementationOnce(
       async () => fakeBetEntity

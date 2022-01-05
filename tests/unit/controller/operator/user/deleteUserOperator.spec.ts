@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { UserErrors } from '@business/modules/errors/user/userErrors'
 import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
 import { DeleteUserUseCase } from '@business/useCases/user/deleteUserUseCase'
@@ -21,7 +22,7 @@ describe('Delete user operator', () => {
   })
 
   test('Should delete a user', async () => {
-    const inputDeleteUser = new InputDeleteUser({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteUser = new InputDeleteUser({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeUserRepositoryFindBy.mockImplementationOnce(
       async () => fakeUserEntityPlayer
     )
@@ -31,38 +32,38 @@ describe('Delete user operator', () => {
     )
 
     const operator = container.get(DeleteUserOperator)
-    const userId = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser)
 
-    expect(userId.isLeft()).toBeFalsy()
+    expect(user_id.isLeft()).toBeFalsy()
 
-    if (userId.isRight()) {
-      expect(userId.value).toStrictEqual(fakeUserEntityPlayer)
+    if (user_id.isRight()) {
+      expect(user_id.value).toStrictEqual(fakeUserEntityPlayer)
     }
 
     expect.assertions(2)
   })
 
   test('Should returns error if findBy of user returns void', async () => {
-    const inputDeleteUser = new InputDeleteUser({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteUser = new InputDeleteUser({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeUserRepositoryFindBy.mockImplementationOnce(
       // eslint-disable-next-line no-void
       async () => void 0
     )
     const operator = container.get(DeleteUserOperator)
-    const userId = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser)
 
-    expect(userId.isRight()).toBeFalsy()
+    expect(user_id.isRight()).toBeFalsy()
 
-    if (userId.isLeft()) {
-      expect(userId.value.statusCode).toBe(
+    if (user_id.isLeft()) {
+      expect(user_id.value.statusCode).toBe(
         UserErrors.userNotFound().statusCode
       )
-      expect(userId.value.body).toStrictEqual(UserErrors.userNotFound().body)
+      expect(user_id.value.body).toStrictEqual(UserErrors.userNotFound().body)
     }
   })
 
   test('Should returns error if delete of user return void', async () => {
-    const inputDeleteUser = new InputDeleteUser({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteUser = new InputDeleteUser({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeUserRepositoryFindBy.mockImplementationOnce(
       async () => fakeUserEntityPlayer
     )
@@ -73,15 +74,15 @@ describe('Delete user operator', () => {
     )
 
     const operator = container.get(DeleteUserOperator)
-    const userId = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser)
 
-    expect(userId.isRight()).toBeFalsy()
+    expect(user_id.isRight()).toBeFalsy()
 
-    if (userId.isLeft()) {
-      expect(userId.value.statusCode).toBe(
+    if (user_id.isLeft()) {
+      expect(user_id.value.statusCode).toBe(
         UserErrors.userFailedToDelete().statusCode
       )
-      expect(userId.value.body).toStrictEqual(
+      expect(user_id.value.body).toStrictEqual(
         UserErrors.userFailedToDelete().body
       )
     }

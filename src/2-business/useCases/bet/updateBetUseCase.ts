@@ -24,10 +24,10 @@ implements IAbstractUseCase<InputUpdateBetDto, IOutputUpdateBetDto> {
 
       const gameUpdate = await this.betRepository.update({
         newData: {
-          userId: game.userId,
-          gameId: game.gameId,
-          priceGame: game.priceGame,
-          numbeChoose: game.numbeChoose,
+          user_id: game.user_id,
+          game_id: game.game_id,
+          price_game: game.price_game,
+          number_choose: game.number_choose,
           updated_at: game.updated_at
         },
         updateWhere

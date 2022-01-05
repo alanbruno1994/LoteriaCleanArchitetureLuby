@@ -2,10 +2,10 @@ import { IsString } from 'class-validator'
 import { AbstractSerializer } from '../abstractSerializer'
 
 export interface IInputByAccessProfile {
-  secureId: string
+  secure_id: string
 }
 
 export class InputByAccessProfile extends AbstractSerializer<IInputByAccessProfile> {
   @IsString()
-  secureId!: string
+  secure_id!: string
 }

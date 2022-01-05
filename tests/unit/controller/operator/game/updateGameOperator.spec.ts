@@ -63,7 +63,7 @@ describe('Update game operator', () => {
     const inputUpdateGame = new InputUpdateGame({
       type: '',
       range: 60,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5,
       color: 'red'
     })
@@ -81,7 +81,7 @@ describe('Update game operator', () => {
     const inputUpdateGame = new InputUpdateGame({
       type: 'Mega Sena',
       range: -60,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5,
       color: 'red'
     })
@@ -95,11 +95,11 @@ describe('Update game operator', () => {
     expect.assertions(1)
   })
 
-  test('Should not update a game with invalid maxNumber', async () => {
+  test('Should not update a game with invalid max_number', async () => {
     const inputUpdateGame = new InputUpdateGame({
       type: 'Mega Sena',
       range: 60,
-      maxNumber: -6,
+      max_number: -6,
       price: 2.5,
       color: 'red'
     })
@@ -117,7 +117,7 @@ describe('Update game operator', () => {
     const inputUpdateGame = new InputUpdateGame({
       type: 'Mega Sena',
       range: 60,
-      maxNumber: 6,
+      max_number: 6,
       price: -2.5,
       color: 'red'
     })
@@ -135,7 +135,7 @@ describe('Update game operator', () => {
     const inputUpdateGame = new InputUpdateGame({
       type: 'Mega Sena',
       range: 60,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5,
       color: ''
     })

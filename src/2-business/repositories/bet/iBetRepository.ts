@@ -26,9 +26,9 @@ export interface IInputDeleteBet {
 // que possua accesso ao banco de dados implemente essa interface
 export interface IBetRepository {
   create: (
-    inputUserEntity: Omit<IBetEntity, 'id' | 'userId' | 'gameId'>,
-    userId: number,
-    gameId: number
+    inputUserEntity: Omit<IBetEntity, 'id' | 'user_id' | 'game_id'>,
+    user_id: number,
+    game_id: number
   ) => Promise<IBetEntity>
   findBy: (
     type: BetEntityKeys,

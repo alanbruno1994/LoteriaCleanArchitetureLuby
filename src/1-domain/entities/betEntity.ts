@@ -12,17 +12,17 @@ export interface IBetEntityRelations { // Aqui serve para definir as relacoes da
 
 export interface IBetEntity extends ITimestamps, Partial<IBetEntityRelations>{
   id: number
-  secureId: string
-  userId: number
-  gameId: number
-  priceGame: number
-  numbeChoose: string
+  secure_id: string
+  user_id: number
+  game_id: number
+  price_game: number
+  number_choose: string
 }
 
 // O Pick constrói um tipo escolhendo o conjunto de propriedades
 export type InputBetEntity = Pick<
 IBetEntity,
-'priceGame' | 'numbeChoose'
+'price_game' | 'number_choose'
 >
 
 export class BetEntity extends AbstractEntity<IBetEntity> {
@@ -32,9 +32,9 @@ export class BetEntity extends AbstractEntity<IBetEntity> {
     const bet = new BetEntity({
       ...props,
       id: 0,
-      secureId: '',
-      userId: 0,
-      gameId: 0,
+      secure_id: '',
+      user_id: 0,
+      game_id: 0,
       created_at: currentDate,
       updated_at: currentDate
     })

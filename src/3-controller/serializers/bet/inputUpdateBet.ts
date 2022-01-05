@@ -6,20 +6,20 @@ export class InputUpdateBet extends AbstractSerializer<InputUpdateBetDto> {
   @IsNumber()
   @IsOptional()
   @Min(1)
-  userId?: number
+  user_id?: number
 
   @IsNumber()
   @IsOptional()
   @Min(1)
-  gameId?: number
+  game_id?: number
 
   @IsNumber()
   @IsOptional()
   @Min(0)
-  priceGame?: number
+  price_game?: number
 
   @IsString()
   @MinLength(1)
   @IsOptional()
-  numbeChoose?: string
+  number_choose?: string
 }

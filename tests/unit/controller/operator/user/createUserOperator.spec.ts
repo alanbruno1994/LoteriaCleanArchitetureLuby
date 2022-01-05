@@ -55,7 +55,7 @@ describe('Create user operator', () => {
     fakeAccessProfileRepositoryFindBy.mockImplementationOnce(async () => ({
       id: 1,
       level: 'admin',
-      secureId: '7ejss-wdjjd-wwkkd',
+      secure_id: '7ejss-wdjjd-wwkkd',
       created_at: new Date(),
       updated_at: new Date()
     }))
@@ -64,7 +64,7 @@ describe('Create user operator', () => {
     expect(user.isLeft()).toBeFalsy()
     expect(user.isRight()).toBeTruthy()
     if (user.isRight()) {
-      expect(user.value.accessProfileId).toBe(1)
+      expect(user.value.access_profile_id).toBe(1)
     }
     expect.assertions(3)
   })
@@ -80,7 +80,7 @@ describe('Create user operator', () => {
     fakeAccessProfileRepositoryFindBy.mockImplementationOnce(async () => ({
       id: 2,
       level: 'player',
-      secureId: '7ejss-wdjjd-wwkkd',
+      secure_id: '7ejss-wdjjd-wwkkd',
       created_at: new Date(),
       updated_at: new Date()
     }))
@@ -89,7 +89,7 @@ describe('Create user operator', () => {
     expect(user.isLeft()).toBeFalsy()
     expect(user.isRight()).toBeTruthy()
     if (user.isRight()) {
-      expect(user.value.accessProfileId).toBe(2)
+      expect(user.value.access_profile_id).toBe(2)
     }
     expect.assertions(3)
   })
@@ -202,7 +202,7 @@ describe('Create user operator', () => {
     fakeAccessProfileRepositoryFindBy.mockImplementation(async () => ({
       id: 1,
       level: 'admin',
-      secureId: '7ejwr-dsskks-ddsa',
+      secure_id: '7ejwr-dsskks-ddsa',
       created_at: new Date(),
       updated_at: new Date()
     }))

@@ -41,10 +41,10 @@ implements IAbstractUseCase<IInputCreateUserDto, IOutputCreateUserDto> {
     })
     const user = {
       ...createUser.value.export(),
-      secureId: this.uniqueIdentifierService.create()
+      secure_id: this.uniqueIdentifierService.create()
     }
     try {
-      const userEntity = await this.userRepository.create(user, input.accessProfileId)
+      const userEntity = await this.userRepository.create(user, input.access_profile_id)
 
       return right(userEntity)
     } catch (error) {

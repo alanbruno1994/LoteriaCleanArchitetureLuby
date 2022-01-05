@@ -12,7 +12,7 @@ export const fakeNewAccessProfile: IInputCreateAccessProfileDto = {
 export const fakeAccessProfileEntity: IAccessProfileEntity = {
   ...fakeCreatedAccessProfileEntity,
   id: 1,
-  secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',
+  secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',
   user: undefined,
   created_at: new Date(),
   updated_at: new Date()
@@ -22,28 +22,28 @@ export const fakeAccessProfileList: IAccessProfileEntity[] = [
   {
     id: 1,
     level: 'admin',
-    secureId: '123e4567-e89b-12d3-a456-426614174000',
+    secure_id: '123e4567-e89b-12d3-a456-426614174000',
     created_at: new Date('2021-09-21T10:00:00.000Z'),
     updated_at: new Date('2021-09-21T10:00:00.000Z')
   },
   {
     id: 2,
     level: 'client',
-    secureId: '123e4567-e89b-12d3-a456-426614174001',
+    secure_id: '123e4567-e89b-12d3-a456-426614174001',
     created_at: new Date('2021-09-21T10:00:00.000Z'),
     updated_at: new Date('2021-09-21T10:00:00.000Z')
   },
   {
     id: 3,
     level: 'manager',
-    secureId: '123e4567-e89b-12d3-a456-426614174002',
+    secure_id: '123e4567-e89b-12d3-a456-426614174002',
     created_at: new Date('2021-09-21T10:00:00.000Z'),
     updated_at: new Date('2021-09-21T10:00:00.000Z')
   },
   {
     id: 4,
     level: 'employee',
-    secureId: '123e4567-e89b-12d3-a456-426614174003',
+    secure_id: '123e4567-e89b-12d3-a456-426614174003',
     created_at: new Date('2021-09-21T10:00:00.000Z'),
     updated_at: new Date('2021-09-21T10:00:00.000Z')
   }

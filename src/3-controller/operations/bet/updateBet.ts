@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { IOutputUpdateBetDto } from '@business/dto/bet/update'
 import { BetErrors } from '@business/modules/errors/bet/betErrors'
@@ -27,32 +28,32 @@ IOutputUpdateBetDto
   }
 
   async run (
-    input: InputUpdateBet, secureId: string
+    input: InputUpdateBet, secure_id: string
   ): Promise<IOutputUpdateBetDto> {
     this.exec(input)
     const existentBet = await this.findBetByUseCase.exec({
-      key: 'secureId',
-      value: secureId
+      key: 'secure_id',
+      value: secure_id
     })
 
     if (existentBet.isLeft()) {
       return left(BetErrors.betNotFound())
     }
 
-    if (input.userId) {
+    if (input.user_id) {
       const isUserAlreadyRegistered = await this.findUserUseCase.exec({
         key: 'id',
-        value: input.userId
+        value: input.user_id
       })
 
       if (isUserAlreadyRegistered.isLeft()) {
         return left(UserErrors.userNotFound())
       }
     }
-    if (input.gameId) {
+    if (input.game_id) {
       const isGameAlreadyRegistered = await this.findGameUseCase.exec({
         key: 'id',
-        value: input.gameId
+        value: input.game_id
       })
 
       if (isGameAlreadyRegistered.isLeft()) {
@@ -62,10 +63,10 @@ IOutputUpdateBetDto
     const betUpdated = await this.updateRoleUseCase.exec(
       {
         ...existentBet.value,
-        userId: input.userId ? input.userId : existentBet.value.userId,
-        gameId: input.gameId ? input.gameId : existentBet.value.gameId,
-        priceGame: input.priceGame ? input.priceGame : existentBet.value.priceGame,
-        numbeChoose: input.numbeChoose ? input.numbeChoose : existentBet.value.numbeChoose
+        user_id: input.user_id ? input.user_id : existentBet.value.user_id,
+        game_id: input.game_id ? input.game_id : existentBet.value.game_id,
+        price_game: input.price_game ? input.price_game : existentBet.value.price_game,
+        number_choose: input.number_choose ? input.number_choose : existentBet.value.number_choose
       },
       { column: 'id', value: existentBet.value.id }
     )

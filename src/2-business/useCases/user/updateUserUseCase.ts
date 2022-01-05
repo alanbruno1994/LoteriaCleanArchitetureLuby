@@ -42,7 +42,7 @@ implements IAbstractUseCase<InputUpdateUserDto, IOutputUpdateUserDto> {
       const userUpdate = await this.userRepository.update({
         newData: {
           email: user.email,
-          accessProfileId: user.accessProfileId,
+          access_profile_id: user.access_profile_id,
           name: user.name,
           password: userPassword,
           updated_at: user.updated_at

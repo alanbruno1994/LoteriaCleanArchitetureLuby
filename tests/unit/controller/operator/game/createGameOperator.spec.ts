@@ -36,7 +36,7 @@ describe('Create game operator', () => {
       color: 'red',
       type: 'Mega-Sena',
       range: 60,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5
     })
 
@@ -53,7 +53,7 @@ describe('Create game operator', () => {
       color: 'r',
       type: 'Mega-Sena',
       range: 60,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5
     })
 
@@ -71,7 +71,7 @@ describe('Create game operator', () => {
       color: 'red',
       type: '',
       range: 60,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5
     })
 
@@ -89,7 +89,7 @@ describe('Create game operator', () => {
       color: 'red',
       type: 'Loto',
       range: -10,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5
     })
 
@@ -107,7 +107,7 @@ describe('Create game operator', () => {
       color: 'red',
       type: 'Loto',
       range: 10,
-      maxNumber: -6,
+      max_number: -6,
       price: 2.5
     })
 
@@ -125,7 +125,7 @@ describe('Create game operator', () => {
       color: 'red',
       type: 'Loto',
       range: 10,
-      maxNumber: 6,
+      max_number: 6,
       price: -2.5
     })
 
@@ -142,7 +142,7 @@ describe('Create game operator', () => {
       color: 'red',
       type: 'Mega Sena',
       range: 10,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5
     })
 
@@ -165,7 +165,7 @@ describe('Create game operator', () => {
       color: 'red',
       type: 'Mega Sena',
       range: 10,
-      maxNumber: 6,
+      max_number: 6,
       price: 2.5
     })
 

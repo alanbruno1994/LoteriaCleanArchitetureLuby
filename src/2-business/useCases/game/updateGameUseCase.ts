@@ -27,7 +27,7 @@ implements IAbstractUseCase<InputUpdateGameDto, IOutputUpdateGameDto> {
           type: game.type,
           range: game.range,
           price: game.price,
-          maxNumber: game.maxNumber,
+          max_number: game.max_number,
           color: game.color,
           updated_at: game.updated_at
         },

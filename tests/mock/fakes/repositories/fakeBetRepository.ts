@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-void */
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 import { BetEntityKeys, IBetRepository, IInputDeleteBet, IInputUpdateBet } from '@business/repositories/bet/iBetRepository'
@@ -16,13 +17,13 @@ export class FakeBetRepository implements IBetRepository {
     return void 0
   }
 
-  async create (i: InputBetEntity, userId: number, gameId: number): Promise<IBetEntity> {
+  async create (i: InputBetEntity, user_id: number, game_id: number): Promise<IBetEntity> {
     return {
       ...i,
       id: 1,
-      userId,
-      gameId,
-      secureId: 'uuid-uuid-1234-uuid',
+      user_id,
+      game_id,
+      secure_id: 'uuid-uuid-1234-uuid',
       created_at: new Date(),
       updated_at: new Date()
     }

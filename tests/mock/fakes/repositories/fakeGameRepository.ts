@@ -20,7 +20,7 @@ export class FakeGameRepository implements IGameRepository {
     return {
       ...i,
       id: 1,
-      secureId: 'uuid-uuid-1234-uuid',
+      secure_id: 'uuid-uuid-1234-uuid',
       created_at: new Date(),
       updated_at: new Date()
     }

@@ -4,7 +4,7 @@ export const IUniqueIdentifierServiceToken = Symbol.for(
   'IUniqueIdentifierServiceToken'
 )
 // Isso aqui sera usado para que algem no futuro implemente
-// e possa gerar um secureId, por exemplo
+// e possa gerar um secure_id, por exemplo
 export interface IUniqueIdentifierService {
   create: () => string
 }

@@ -6,7 +6,7 @@ import { Either } from '@shared/either'
 import { IError } from '@shared/iError'
 
 export interface IInputCreateUserDto extends InputUserEntity {
-  accessProfileId: number
+  access_profile_id: number
 }
 
 export type IOutputCreateUserDto = Either<IError, IUserEntity>

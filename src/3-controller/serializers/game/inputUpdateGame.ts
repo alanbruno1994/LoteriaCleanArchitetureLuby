@@ -21,7 +21,7 @@ export class InputUpdateGame extends AbstractSerializer<InputUpdateGameDto> {
   @IsNumber()
   @IsOptional()
   @Min(1)
-  maxNumber?: number
+  max_number?: number
 
   @IsString()
   @MinLength(3)

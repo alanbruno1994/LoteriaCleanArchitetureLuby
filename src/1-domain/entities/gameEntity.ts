@@ -12,18 +12,18 @@ export interface IGameEntityRelations { // Aqui serve para definir as relacoes d
 
 export interface IGameEntity extends ITimestamps, Partial<IGameEntityRelations>{
   id: number
-  secureId: string
+  secure_id: string
   type: string
   range: number
   price: number
-  maxNumber: number
+  max_number: number
   color: string
 }
 
 // O Pick constrói um tipo escolhendo o conjunto de propriedades
 export type InputGameEntity = Pick<
 IGameEntity,
-'type' | 'range' | 'price' | 'maxNumber' | 'color'
+'type' | 'range' | 'price' | 'max_number' | 'color'
 >
 
 // Isso aqui vai ser usado para montar os dados
@@ -34,7 +34,7 @@ export class GameEntity extends AbstractEntity<IGameEntity> {
     const game = new GameEntity({
       ...props,
       id: 0,
-      secureId: '',
+      secure_id: '',
       created_at: currentDate,
       updated_at: currentDate
     })

@@ -22,8 +22,8 @@ Either<IError, IUserEntity>
     this.exec(input)
 
     const user = await this.findUserByUseCase.exec({
-      key: 'secureId',
-      value: input.secureId
+      key: 'secure_id',
+      value: input.secure_id
     })
 
     if (user.isLeft()) {

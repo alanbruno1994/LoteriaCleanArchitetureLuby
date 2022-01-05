@@ -19,7 +19,7 @@ describe('Find one bet operator', () => {
   })
 
   test('Should find a bet', async () => {
-    const inputDeleteBet = new InputByBet({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteBet = new InputByBet({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeBetRepositoryFindBy.mockImplementationOnce(
       async () => fakeBetEntity
     )
@@ -37,7 +37,7 @@ describe('Find one bet operator', () => {
   })
 
   test('Should returns error if findBy of bet returns void', async () => {
-    const inputDeleteBet = new InputByBet({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteBet = new InputByBet({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeBetRepositoryFindBy.mockImplementationOnce(
       // eslint-disable-next-line no-void
       async () => void 0

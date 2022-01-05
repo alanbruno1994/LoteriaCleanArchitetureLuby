@@ -84,8 +84,8 @@ describe('AccessProfile use cases', () => {
       fakeAccessProfileRepositoryFindBy.mockImplementation(async () => fakeAccessProfileEntity)
 
       const accessResult = await accessFindByUseCase.exec({
-        key: 'secureId',
-        value: fakeAccessProfileEntity.secureId
+        key: 'secure_id',
+        value: fakeAccessProfileEntity.secure_id
       })
 
       expect(accessResult.isLeft()).toBeFalsy()
@@ -98,7 +98,7 @@ describe('AccessProfile use cases', () => {
       fakeAccessProfileRepositoryFindBy.mockImplementation(async () => void 0)
 
       const accessResult = await accessRepository.exec({
-        key: 'secureId',
+        key: 'secure_id',
         value: 'Not exists'
       })
 

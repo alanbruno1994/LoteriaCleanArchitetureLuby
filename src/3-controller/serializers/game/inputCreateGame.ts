@@ -18,7 +18,7 @@ export class InputCreateGame extends AbstractSerializer<IInputCreateGameDto> {
   @IsNumber()
 
   @Min(1)
-  maxNumber!: number
+  max_number!: number
 
   @IsString()
   @MinLength(3)

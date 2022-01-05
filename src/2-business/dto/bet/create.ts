@@ -3,8 +3,8 @@ import { Either } from '@shared/either'
 import { IError } from '@shared/iError'
 
 export interface IInputCreateBetDto extends InputBetEntity {
-  gameId: number
-  userId: number
+  game_id: number
+  user_id: number
 }
 
 export type IOutputCreateBetDto = Either<IError, IBetEntity>

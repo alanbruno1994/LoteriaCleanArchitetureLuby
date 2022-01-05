@@ -22,8 +22,8 @@ Either<IError, IGameEntity>
     this.exec(input)
 
     const game = await this.findGameByUseCase.exec({
-      key: 'secureId',
-      value: input.secureId
+      key: 'secure_id',
+      value: input.secure_id
     })
 
     if (game.isLeft()) {

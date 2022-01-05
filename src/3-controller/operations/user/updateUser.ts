@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { IOutputUpdateUserDto } from '@business/dto/user/update'
 import { UserErrors } from '@business/modules/errors/user/userErrors'
@@ -21,12 +22,12 @@ IOutputUpdateUserDto
   }
 
   async run (
-    input: InputUpdateUser, secureId: string
+    input: InputUpdateUser, secure_id: string
   ): Promise<IOutputUpdateUserDto> {
     this.exec(input)
     const existentUser = await this.findUserByUseCase.exec({
-      key: 'secureId',
-      value: secureId
+      key: 'secure_id',
+      value: secure_id
     })
 
     if (existentUser.isLeft()) {
@@ -38,7 +39,7 @@ IOutputUpdateUserDto
         ...existentUser.value,
         name: input.name ? input.name : existentUser.value.name,
         email: input.email ? input.email : existentUser.value.email,
-        accessProfileId: input.accessProfileId ? input.accessProfileId : existentUser.value.accessProfileId,
+        access_profile_id: input.access_profile_id ? input.access_profile_id : existentUser.value.access_profile_id,
         password: input.password
       },
       { column: 'id', value: existentUser.value.id }

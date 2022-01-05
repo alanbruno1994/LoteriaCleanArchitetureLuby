@@ -21,7 +21,7 @@ describe('Delete accessProfile operator', () => {
   })
 
   test('Should delete a accessProfile', async () => {
-    const inputDeleteAccessProfile = new InputDeleteAccessProfile({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteAccessProfile = new InputDeleteAccessProfile({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeAccessProfileRepositoryFindBy.mockImplementationOnce(
       async () => fakeAccessProfileEntity
     )
@@ -43,7 +43,7 @@ describe('Delete accessProfile operator', () => {
   })
 
   test('Should returns error if findBy of accessProfile returns void', async () => {
-    const inputDeleteAccessProfile = new InputDeleteAccessProfile({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteAccessProfile = new InputDeleteAccessProfile({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeAccessProfileRepositoryFindBy.mockImplementationOnce(
       // eslint-disable-next-line no-void
       async () => void 0
@@ -62,7 +62,7 @@ describe('Delete accessProfile operator', () => {
   })
 
   test('Should returns error if delete of accessProfile return void', async () => {
-    const inputDeleteAccessProfile = new InputDeleteAccessProfile({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteAccessProfile = new InputDeleteAccessProfile({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeAccessProfileRepositoryFindBy.mockImplementationOnce(
       async () => fakeAccessProfileEntity
     )

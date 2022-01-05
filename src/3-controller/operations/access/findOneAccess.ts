@@ -22,8 +22,8 @@ Either<IError, IAccessProfileEntity>
     this.exec(input)
 
     const access = await this.findAccessProfileByUseCase.exec({
-      key: 'secureId',
-      value: input.secureId
+      key: 'secure_id',
+      value: input.secure_id
     })
 
     if (access.isLeft()) {

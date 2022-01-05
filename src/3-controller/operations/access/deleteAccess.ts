@@ -24,8 +24,8 @@ IOutputDeleteAccessProfileDto
   ): Promise<IOutputDeleteAccessProfileDto> {
     await this.exec(input)
     const accessForDeletion = await this.findAccessProfileByUseCase.exec({
-      key: 'secureId',
-      value: input.secureId
+      key: 'secure_id',
+      value: input.secure_id
     })
 
     if (accessForDeletion.isLeft()) {

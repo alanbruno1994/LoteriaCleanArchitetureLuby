@@ -19,7 +19,7 @@ describe('Find one bet operator', () => {
   })
 
   test('Should find a bet', async () => {
-    const inputDeleteAccessProfile = new InputByAccessProfile({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteAccessProfile = new InputByAccessProfile({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeAccessProfileRepositoryFindBy.mockImplementationOnce(
       async () => fakeAccessProfileEntity
     )
@@ -37,7 +37,7 @@ describe('Find one bet operator', () => {
   })
 
   test('Should returns error if findBy of bet returns void', async () => {
-    const inputDeleteAccessProfile = new InputByAccessProfile({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteAccessProfile = new InputByAccessProfile({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeAccessProfileRepositoryFindBy.mockImplementationOnce(
       // eslint-disable-next-line no-void
       async () => void 0

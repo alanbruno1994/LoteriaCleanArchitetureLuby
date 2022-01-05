@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { IOutputUpdateGameDto } from '@business/dto/game/update'
 import { GameErrors } from '@business/modules/errors/game/gameErrors'
@@ -21,12 +22,12 @@ IOutputUpdateGameDto
   }
 
   async run (
-    input: InputUpdateGame, secureId: string
+    input: InputUpdateGame, secure_id: string
   ): Promise<IOutputUpdateGameDto> {
     this.exec(input)
     const existentGame = await this.findGameByUseCase.exec({
-      key: 'secureId',
-      value: secureId
+      key: 'secure_id',
+      value: secure_id
     })
 
     if (existentGame.isLeft()) {
@@ -39,7 +40,7 @@ IOutputUpdateGameDto
         type: input.type ? input.type : existentGame.value.type,
         range: input.range ? input.range : existentGame.value.range,
         price: input.price ? input.price : existentGame.value.price,
-        maxNumber: input.maxNumber ? input.maxNumber : existentGame.value.maxNumber,
+        max_number: input.max_number ? input.max_number : existentGame.value.max_number,
         color: input.color ? input.color : existentGame.value.color
       },
       { column: 'id', value: existentGame.value.id }

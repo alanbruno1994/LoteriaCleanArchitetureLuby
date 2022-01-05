@@ -10,7 +10,7 @@ export interface IAccessProfileEntityRelations { // Aqui serve para definir as r
 
 export interface IAccessProfileEntity extends ITimestamps, Partial<IAccessProfileEntityRelations>{
   id: number
-  secureId: string
+  secure_id: string
   level: string
 }
 
@@ -27,7 +27,7 @@ export class AccessProfileEntity extends AbstractEntity<IAccessProfileEntity> {
     const access = new AccessProfileEntity({
       ...props,
       id: 0,
-      secureId: '',
+      secure_id: '',
       created_at: currentDate,
       updated_at: currentDate
     })

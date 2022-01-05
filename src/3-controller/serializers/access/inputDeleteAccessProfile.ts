@@ -4,5 +4,5 @@ import { AbstractSerializer } from '../abstractSerializer'
 
 export class InputDeleteAccessProfile extends AbstractSerializer<IInputDeleteAccessProfileDto> {
   @IsString()
-  secureId!: string
+  secure_id!: string
 }

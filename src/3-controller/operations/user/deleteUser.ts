@@ -24,8 +24,8 @@ IOutputDeleteUserDto
   ): Promise<IOutputDeleteUserDto> {
     await this.exec(input)
     const userForDeletion = await this.findUserByUseCase.exec({
-      key: 'secureId',
-      value: input.secureId
+      key: 'secure_id',
+      value: input.secure_id
     })
 
     if (userForDeletion.isLeft()) {

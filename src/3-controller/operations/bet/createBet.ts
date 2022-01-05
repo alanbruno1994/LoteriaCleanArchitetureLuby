@@ -27,14 +27,14 @@ IOutputCreateBetDto
 
     const isUserAlreadyRegistered = await this.findUserUseCase.exec({
       key: 'id',
-      value: input.userId
+      value: input.user_id
     })
     if (isUserAlreadyRegistered.isLeft()) {
       return left(UserErrors.userNotFound())
     }
     const isGameAlreadyRegistered = await this.findGameUseCase.exec({
       key: 'id',
-      value: input.userId
+      value: input.user_id
     })
     if (isGameAlreadyRegistered.isLeft()) {
       return left(GameErrors.gameNotFound())

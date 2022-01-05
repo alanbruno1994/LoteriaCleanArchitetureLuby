@@ -3,7 +3,7 @@ import { Either } from '@shared/either'
 import { IError } from '@shared/iError'
 
 export interface IInputDeleteGameDto {
-  secureId: string
+  secure_id: string
 }
 
 export type IOutputDeleteGameDto = Either<IError, IGameEntity>

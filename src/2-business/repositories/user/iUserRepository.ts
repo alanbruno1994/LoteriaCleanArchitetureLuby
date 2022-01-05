@@ -23,8 +23,8 @@ export interface IInputDeleteUser {
 }
 export interface IUserRepository {
   create: (
-    inputUserEntity: Omit<IUserEntity, 'id' | 'accessProfileId'>,
-    accessProfileId: number
+    inputUserEntity: Omit<IUserEntity, 'id' | 'access_profile_id'>,
+    access_profile_id: number
   ) => Promise<IUserEntity>
   findBy: (
     type: UserEntityKeys,

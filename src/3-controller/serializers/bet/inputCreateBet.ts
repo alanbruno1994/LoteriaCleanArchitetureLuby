@@ -5,17 +5,17 @@ import { AbstractSerializer } from '../abstractSerializer'
 export class InputCreateBet extends AbstractSerializer<IInputCreateBetDto> {
   @IsNumber()
   @Min(1)
-  userId!: number
+  user_id!: number
 
   @IsNumber()
   @Min(1)
-  gameId!: number
+  game_id!: number
 
   @IsNumber()
   @Min(0)
-  priceGame!: number
+  price_game!: number
 
   @IsString()
   @MinLength(1)
-  numbeChoose!: string
+  number_choose!: string
 }

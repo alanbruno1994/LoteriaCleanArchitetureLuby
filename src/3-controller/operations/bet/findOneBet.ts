@@ -22,8 +22,8 @@ Either<IError, IBetEntity>
     this.exec(input)
 
     const bet = await this.findBetByUseCase.exec({
-      key: 'secureId',
-      value: input.secureId
+      key: 'secure_id',
+      value: input.secure_id
     })
 
     if (bet.isLeft()) {

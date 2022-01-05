@@ -20,5 +20,5 @@ export class InputUpdateUser extends AbstractSerializer<InputUpdateUserDto> {
 
   @IsNumber()
   @IsOptional()
-  accessProfileId?: number
+  access_profile_id?: number
 }

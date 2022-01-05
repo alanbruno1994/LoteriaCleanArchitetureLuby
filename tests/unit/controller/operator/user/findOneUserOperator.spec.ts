@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { UserErrors } from '@business/modules/errors/user/userErrors'
 import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
 import { FindUserByUseCase } from '@business/useCases/user/findUserByUseCase'
@@ -19,39 +20,39 @@ describe('Find one user operator', () => {
   })
 
   test('Should find a user', async () => {
-    const inputDeleteUser = new InputByUser({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteUser = new InputByUser({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeUserRepositoryFindBy.mockImplementationOnce(
       async () => fakeUserEntityPlayer
     )
 
     const operator = container.get(FindOneUserOperator)
-    const userId = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser)
 
-    expect(userId.isLeft()).toBeFalsy()
+    expect(user_id.isLeft()).toBeFalsy()
 
-    if (userId.isRight()) {
-      expect(userId.value).toStrictEqual(fakeUserEntityPlayer)
+    if (user_id.isRight()) {
+      expect(user_id.value).toStrictEqual(fakeUserEntityPlayer)
     }
 
     expect.assertions(2)
   })
 
   test('Should returns error if findBy of user returns void', async () => {
-    const inputDeleteUser = new InputByUser({ secureId: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
+    const inputDeleteUser = new InputByUser({ secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d' })
     fakeUserRepositoryFindBy.mockImplementationOnce(
       // eslint-disable-next-line no-void
       async () => void 0
     )
     const operator = container.get(FindOneUserOperator)
-    const userId = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser)
 
-    expect(userId.isRight()).toBeFalsy()
+    expect(user_id.isRight()).toBeFalsy()
 
-    if (userId.isLeft()) {
-      expect(userId.value.statusCode).toBe(
+    if (user_id.isLeft()) {
+      expect(user_id.value.statusCode).toBe(
         UserErrors.userNotFound().statusCode
       )
-      expect(userId.value.body).toStrictEqual(UserErrors.userNotFound().body)
+      expect(user_id.value.body).toStrictEqual(UserErrors.userNotFound().body)
     }
   })
 })

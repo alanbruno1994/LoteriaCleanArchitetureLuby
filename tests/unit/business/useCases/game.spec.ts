@@ -56,7 +56,7 @@ describe('Game use cases', () => {
         expect(gameEntity.value.type).toBe(fakeNewGame.type)
         expect(gameEntity.value.color).toBe(fakeNewGame.color)
         expect(gameEntity.value.range).toBe(fakeNewGame.range)
-        expect(gameEntity.value.maxNumber).toBe(fakeNewGame.maxNumber)
+        expect(gameEntity.value.max_number).toBe(fakeNewGame.max_number)
       }
 
       expect.assertions(7)
@@ -89,8 +89,8 @@ describe('Game use cases', () => {
       fakeGameRepositoryFindBy.mockImplementation(async () => fakeGameEntity)
 
       const gameResult = await gameFindByUseCase.exec({
-        key: 'secureId',
-        value: fakeGameEntity.secureId
+        key: 'secure_id',
+        value: fakeGameEntity.secure_id
       })
 
       expect(gameResult.isLeft()).toBeFalsy()
@@ -103,7 +103,7 @@ describe('Game use cases', () => {
       fakeGameRepositoryFindBy.mockImplementation(async () => void 0)
 
       const gameResult = await gameRepository.exec({
-        key: 'secureId',
+        key: 'secure_id',
         value: 'Not exists'
       })
 

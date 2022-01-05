@@ -25,7 +25,7 @@ implements IAbstractUseCase<IInputCreateGameDto, IOutputCreateGameDto> {
     const createGame = GameEntity.create(input)
     const game = {
       ...createGame.value.export(),
-      secureId: this.uniqueIdentifierService.create()
+      secure_id: this.uniqueIdentifierService.create()
     }
     try {
       const gameEntity = await this.gameRepository.create(game)

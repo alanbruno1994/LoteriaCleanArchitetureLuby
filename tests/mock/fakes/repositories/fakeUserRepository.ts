@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-void */
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 import {
@@ -24,12 +25,12 @@ export class FakeUserRepository implements IUserRepository {
     return void 0
   }
 
-  async create (i: InputUserEntity, accessProfileId: number): Promise<IUserEntity> {
+  async create (i: InputUserEntity, access_profile_id: number): Promise<IUserEntity> {
     return {
       ...i,
       id: 1,
-      accessProfileId,
-      secureId: 'uuid-uuid-1234-uuid',
+      access_profile_id,
+      secure_id: 'uuid-uuid-1234-uuid',
       created_at: new Date(),
       updated_at: new Date()
     }

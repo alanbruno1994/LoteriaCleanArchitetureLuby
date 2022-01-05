@@ -25,7 +25,7 @@ implements IAbstractUseCase<IInputCreateAccessProfileDto, IOutputCreateAccessPro
     const createAccessProfile = AccessProfileEntity.create(input)
     const access = {
       ...createAccessProfile.value.export(),
-      secureId: this.uniqueIdentifierService.create()
+      secure_id: this.uniqueIdentifierService.create()
     }
     try {
       const accessEntity = await this.accessRepository.create(access)
