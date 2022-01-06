@@ -1,13 +1,20 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 'use strict'
-import { Model, DataTypes } from 'sequelize'
-import { sequelize } from '@framework/ultility/database'
-import { UserModel } from './userModel'
-import { BetModel } from './betModel'
+import { DataTypes, Model } from 'sequelize'
+import { connect } from '@framework/ultility/database'
 import { IGameEntity } from '@domain/entities/gameEntity'
-export class GameModel extends Model {}
 
+export class GameModel extends Model {
+  static associate (model: any) {
+    GameModel.belongsToMany(model.UserModel, {
+      as: 'data_user',
+      through: 'BetModel',
+      foreignKey: 'game_id'
+    })
+  }
+}
 // eslint-disable-next-line
-export interface GameModel extends IGameEntity {}
+ export interface GameModel extends IGameEntity {}
 
 GameModel.init(
   {
@@ -48,12 +55,6 @@ GameModel.init(
     tableName: 'games',
     timestamps: false,
     underscored: true,
-    sequelize
+    sequelize: connect
   }
 )
-
-GameModel.belongsToMany(UserModel, {
-  as: 'data_user',
-  through: BetModel,
-  foreignKey: 'game_id'
-})

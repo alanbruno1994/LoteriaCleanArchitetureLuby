@@ -1,11 +1,21 @@
 'use strict'
-import { Model, DataTypes } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
+import { connect } from '@framework/ultility/database'
 import { IUserEntity } from '@root/src/1-domain/entities/userEntity'
-import { sequelize } from '@framework/ultility/database'
-import { BetModel } from './betModel'
-import { AccessProfileModel } from './accessprofileModel'
-import { GameModel } from './gameModel'
-export class UserModel extends Model {}
+
+export class UserModel extends Model {
+  static associate (model: any) {
+    UserModel.belongsTo(model.AccessProfileModel, {
+      foreignKey: 'access_profile_id'
+    })
+
+    UserModel.belongsToMany(model.GameModel, {
+      as: 'data_game',
+      through: model.BetModel,
+      foreignKey: 'user_id'
+    })
+  }
+}
 
 // eslint-disable-next-line
 export interface UserModel extends IUserEntity {}
@@ -53,16 +63,6 @@ UserModel.init(
     tableName: 'users',
     timestamps: false,
     underscored: true,
-    sequelize
+    sequelize: connect
   }
 )
-
-UserModel.belongsTo(AccessProfileModel, {
-  foreignKey: 'access_profile_id'
-})
-
-UserModel.belongsToMany(GameModel, {
-  as: 'data_game',
-  through: BetModel,
-  foreignKey: 'user_id'
-})

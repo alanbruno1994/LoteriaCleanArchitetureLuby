@@ -1,10 +1,14 @@
 'use strict'
-import { Model, DataTypes } from 'sequelize'
-import { sequelize } from '@framework/ultility/database'
-import { UserModel } from './userModel'
-import { GameModel } from './gameModel'
+import { DataTypes, Model } from 'sequelize'
+import { connect } from '@framework/ultility/database'
 import { IBetEntity } from '@domain/entities/betEntity'
-export class BetModel extends Model {}
+
+export class BetModel extends Model {
+  static associate (model: any) {
+    BetModel.hasOne(model.UserModel, { foreignKey: 'id' })
+    BetModel.hasOne(model.GameModel, { foreignKey: 'id' })
+  }
+}
 
 // eslint-disable-next-line
 export interface BetModel extends IBetEntity {}
@@ -44,9 +48,6 @@ BetModel.init(
     tableName: 'bets',
     timestamps: false,
     underscored: true,
-    sequelize
+    sequelize: connect
   }
 )
-
-BetModel.hasOne(UserModel, { foreignKey: 'id' })
-BetModel.hasOne(GameModel, { foreignKey: 'id' })
