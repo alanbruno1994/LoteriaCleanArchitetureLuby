@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { Sequelize, Options } from 'sequelize'
 const sequelizeConfig = require('../../../sequelize.config.js')
@@ -14,4 +15,4 @@ const connectionOptions: Options = {
   }
 }
 
-export const sequelize = new Sequelize(connectionOptions)
+export const connect = new Sequelize(connectionOptions)
