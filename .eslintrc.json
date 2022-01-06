@@ -16,6 +16,9 @@
       "@typescript-eslint/no-namespace": "off",
       "@typescript-eslint/no-invalid-void-type":"off",
       "@typescript-eslint/naming-convention":"off",
+      "@typescript-eslint/no-var-requires": "off",
+      "node/no-path-concat":"off",
+      "@typescript-eslint/explicit-function-return-type": "off",
       "import/export": "off"
     }    
   }
