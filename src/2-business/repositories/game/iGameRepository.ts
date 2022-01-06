@@ -24,7 +24,7 @@ export interface IInputDeleteGame{
 // que possua accesso ao banco de dados implemente essa interface
 export interface IGameRepository {
   create: (
-    inputUserEntity: Omit<IGameEntity, 'id'>,
+    inputGameEntity: Omit<IGameEntity, 'id'>,
   ) => Promise<IGameEntity>
   findBy: (
     type: GameEntityKeys,
