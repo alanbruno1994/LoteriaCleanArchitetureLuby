@@ -2,6 +2,21 @@
     "extends": "standard-with-typescript",
     "parserOptions": {
       "project": "./tsconfig.json"
-    }
+    },
+    "rules": {
+      "strict": "off",
+      "no-void": "off",
+      "camelcase": "off",
+      "@typescript-eslint/strict-boolean-expressions": "off",
+      "@typescript-eslint/consistent-type-definitions": "off",
+      "@typescript-eslint/comma-spacing": "off",
+      "@typescript-eslint/return-await": "off",
+      "@typescript-eslint/restrict-template-expressions": "off",
+      "@typescript-eslint/no-misused-promises": "off",
+      "@typescript-eslint/no-namespace": "off",
+      "@typescript-eslint/no-invalid-void-type":"off",
+      "@typescript-eslint/naming-convention":"off",
+      "import/export": "off"
+    }    
   }
   
