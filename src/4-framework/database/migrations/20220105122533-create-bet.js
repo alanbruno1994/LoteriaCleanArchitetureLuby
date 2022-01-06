@@ -32,15 +32,15 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false
       },
-      numberChoose: {
+      number_choose: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }

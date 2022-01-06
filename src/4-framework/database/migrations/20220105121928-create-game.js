@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false
       },
       range: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       price: {
@@ -26,17 +26,18 @@ module.exports = {
         allowNull: false
       },
       max_number: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       color: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }
