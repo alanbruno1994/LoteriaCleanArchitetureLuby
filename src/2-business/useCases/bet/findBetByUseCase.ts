@@ -16,7 +16,7 @@ implements IAbstractUseCase<IInputFindBetByDto, IOutputFindBetByDto> {
   async exec (input: IInputFindBetByDto): Promise<IOutputFindBetByDto> {
     const bet = await this.betRepository.findBy(input.key, input.value)
 
-    if (bet == null) {
+    if (!bet) {
       return left(BetErrors.betNotFound())
     }
 

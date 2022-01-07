@@ -15,8 +15,7 @@ implements IAbstractUseCase<IInputFindAccessProfileByDto, IOutputFindAccessProfi
 
   async exec (input: IInputFindAccessProfileByDto): Promise<IOutputFindAccessProfileByDto> {
     const access = await this.accessRepository.findBy(input.key, input.value)
-
-    if (access == null) {
+    if (!access) {
       return left(AccessProfileErrors.accessProfileNotFound())
     }
 

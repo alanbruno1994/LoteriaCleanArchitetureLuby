@@ -50,7 +50,7 @@ implements IAbstractUseCase<InputUpdateUserDto, IOutputUpdateUserDto> {
         updateWhere
       })
 
-      if (userUpdate == null) {
+      if (!userUpdate) {
         return left(UserErrors.userNotFound())
       }
 

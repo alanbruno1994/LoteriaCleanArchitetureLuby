@@ -33,7 +33,7 @@ implements IAbstractUseCase<InputUpdateBetDto, IOutputUpdateBetDto> {
         updateWhere
       })
 
-      if (gameUpdate == null) {
+      if (!gameUpdate) {
         return left(BetErrors.betNotFound())
       }
 

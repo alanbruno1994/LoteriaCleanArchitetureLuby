@@ -17,7 +17,7 @@ implements IAbstractUseCase<IInputDeleteBet, IOutputDeleteBetDto> {
       key: input.key,
       value: input.value
     })
-    if (betToDelete == null) {
+    if (!betToDelete) {
       return left(BetErrors.betFailedToDelete())
     }
 

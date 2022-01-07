@@ -31,7 +31,7 @@ implements IAbstractUseCase<InputUpdateGameDto, IOutputUpdateAccessProfileDto> {
         updateWhere
       })
 
-      if (gameUpdate == null) {
+      if (!gameUpdate) {
         return left(AccessProfileErrors.accessProfileNotFound())
       }
 

@@ -34,7 +34,7 @@ implements IAbstractUseCase<InputUpdateGameDto, IOutputUpdateGameDto> {
         updateWhere
       })
 
-      if (gameUpdate == null) {
+      if (!gameUpdate) {
         return left(GameErrors.gameNotFound())
       }
 

@@ -17,7 +17,7 @@ implements IAbstractUseCase<IInputDeleteAccess, IOutputDeleteAccessProfileDto> {
       key: input.key,
       value: input.value
     })
-    if (accessToDelete == null) {
+    if (!accessToDelete) {
       return left(AccessProfileErrors.accessProfileFailedToDelete())
     }
 

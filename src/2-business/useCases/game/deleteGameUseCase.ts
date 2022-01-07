@@ -17,7 +17,7 @@ implements IAbstractUseCase<IInputDeleteGame, IOutputDeleteGameDto> {
       key: input.key,
       value: input.value
     })
-    if (userToDelete == null) {
+    if (!userToDelete) {
       return left(GameErrors.gameFailedToDelete())
     }
 

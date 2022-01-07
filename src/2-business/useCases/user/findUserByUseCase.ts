@@ -22,7 +22,7 @@ implements IAbstractUseCase<IInputFindUserByDto, IOutputFindUserByDto> {
   async exec (input: IInputFindUserByDto): Promise<IOutputFindUserByDto> {
     const user = await this.userRepository.findBy(input.key, input.value)
 
-    if (user == null) {
+    if (!user) {
       return left(UserErrors.userNotFound())
     }
 
