@@ -15,4 +15,4 @@ const connectionOptions: Options = {
   }
 }
 
-export const connect = new Sequelize(connectionOptions)
+export const sequelize = new Sequelize(connectionOptions)
