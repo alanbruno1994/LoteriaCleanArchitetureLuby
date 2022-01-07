@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
 import { UserErrors } from '@business/modules/errors/user/userErrors'
 import { FindAccessProfileByUseCase } from '@business/useCases/access/findAccessProfileByUseCase'
@@ -24,7 +25,6 @@ IOutputCreateUserDto
 
   async run (input: InputCreateUser): Promise<IOutputCreateUserDto> {
     this.exec(input) // Aqui valida os dados de entrada
-
     const isUserAlreadyRegistered = await this.findUserUseCase.exec({
       key: 'email',
       value: input.email
@@ -51,7 +51,6 @@ IOutputCreateUserDto
     if (userResult.isLeft()) {
       return left(userResult.value)
     }
-
     return right(userResult.value)
   }
 }
