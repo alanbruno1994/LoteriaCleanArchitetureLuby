@@ -29,11 +29,9 @@ IOutputUpdateUserDto
       key: 'secure_id',
       value: secure_id
     })
-
     if (existentUser.isLeft()) {
       return left(UserErrors.userNotFound())
     }
-
     const userUpdated = await this.updateUserUseCase.exec(
       {
         ...existentUser.value,
@@ -44,11 +42,9 @@ IOutputUpdateUserDto
       },
       { column: 'id', value: existentUser.value.id }
     )
-
     if (userUpdated.isLeft()) {
       return left(userUpdated.value)
     }
-
     return right(userUpdated.value)
   }
 }
