@@ -21,7 +21,7 @@ routeUser.get('/user', async (_req: Request,res: Response) => {
     if (users.isLeft()) {
       return res.status(users.value.statusCode).send(users.value.body)
     }
-    res.status(201).send(users.value)
+    res.status(200).send(users.value)
   } catch (error) {
     if (error instanceof IError) {
       return res.status(error.statusCode).send(error.body)
@@ -38,7 +38,7 @@ routeUser.get('/user/:secureId', async (req: Request,res: Response) => {
     if (users.isLeft()) {
       return res.status(users.value.statusCode).send(users.value.body)
     }
-    return res.status(201).send(users.value)
+    return res.status(200).send({ ...users.value,password: null })
   } catch (error) {
     if (error instanceof IError) {
       return res.status(error.statusCode).send(error.body)
