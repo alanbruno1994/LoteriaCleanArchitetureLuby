@@ -1,21 +1,10 @@
+/* eslint-disable @typescript-eslint/semi */
 'use strict'
 import { DataTypes, Model } from 'sequelize'
-import { connect } from '@framework/ultility/database'
+import { sequelize } from '@framework/ultility/database'
 import { IUserEntity } from '@root/src/1-domain/entities/userEntity'
 
-export class UserModel extends Model {
-  static associate (model: any) {
-    UserModel.belongsTo(model.AccessProfileModel, {
-      foreignKey: 'access_profile_id'
-    })
-
-    UserModel.belongsToMany(model.GameModel, {
-      as: 'data_game',
-      through: model.BetModel,
-      foreignKey: 'user_id'
-    })
-  }
-}
+export class UserModel extends Model {}
 
 // eslint-disable-next-line
 export interface UserModel extends IUserEntity {}
@@ -63,6 +52,28 @@ UserModel.init(
     tableName: 'users',
     timestamps: false,
     underscored: true,
-    sequelize: connect
+    sequelize
   }
 )
+
+UserModel.addHook('afterSave',
+  async (user: any): Promise<void> => {
+    user.password = null
+  })
+
+UserModel.addHook('afterFind',
+  async (user: any): Promise<void> => {
+    if (user.constructor === Array) {
+      user.map(value => {
+        value.dataValues.password = null
+        return value
+      })
+    } else {
+      user.password = null
+    }
+  })
+
+UserModel.addHook('afterQuery',
+  async (user: any): Promise<void> => {
+    user.password = null
+  })
