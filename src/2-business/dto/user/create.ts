@@ -9,4 +9,4 @@ export interface IInputCreateUserDto extends InputUserEntity {
   access_profile_id: number
 }
 
-export type IOutputCreateUserDto = Either<IError, IUserEntity>
+export type IOutputCreateUserDto = Either<IError, Omit<IUserEntity,'password'>>
