@@ -20,7 +20,7 @@ routeAccessProfile.get('/access', async (_req: Request,res: Response) => {
     if (accesss.isLeft()) {
       return res.status(accesss.value.statusCode).send(accesss.value.body)
     }
-    return res.status(201).send(accesss)
+    return res.status(200).send(accesss.value)
   } catch (error) {
     if (error instanceof IError) {
       return res.status(error.statusCode).send(error.body)
