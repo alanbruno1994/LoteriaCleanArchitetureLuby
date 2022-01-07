@@ -3,6 +3,7 @@ import { DeleteAccessProfileOperator } from '@controller/operations/access/delet
 import { FindAllAccessProfileOperator } from '@controller/operations/access/findAllAccess'
 import { FindOneAccessProfileOperator } from '@controller/operations/access/findOneAccess'
 import { UpdateAccessProfileOperator } from '@controller/operations/access/updateAccess'
+import { CreateAuthenticationOperator } from '@controller/operations/authentication/createAuthentication'
 import { CreateBetOperator } from '@controller/operations/bet/createBet'
 import { DeleteBetOperator } from '@controller/operations/bet/deleteBet'
 import { FindAllBetOperator } from '@controller/operations/bet/findAllBet'
@@ -46,4 +47,6 @@ export const operatorModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(FindOneAccessProfileOperator).to(FindOneAccessProfileOperator)
   bind(FindAllAccessProfileOperator).to(FindAllAccessProfileOperator)
   bind(UpdateAccessProfileOperator).to(UpdateAccessProfileOperator)
+
+  bind(CreateAuthenticationOperator).to(CreateAuthenticationOperator)
 })

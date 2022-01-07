@@ -1,3 +1,5 @@
+import { IAuthenticatorService, IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthenticatorService } from '@framework/services/auth/AuthenticatorService'
 import {
   IHasherService,
   IHasherServiceToken
@@ -15,4 +17,5 @@ export const servicesModule = new ContainerModule((bind: interfaces.Bind) => {
   bind<IUniqueIdentifierService>(IUniqueIdentifierServiceToken).to(
     UniqueIdentifierService
   )
+  bind<IAuthenticatorService>(IAuthenticatorServiceToken).to(AuthenticatorService)
 })
