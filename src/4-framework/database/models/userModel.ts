@@ -68,8 +68,6 @@ UserModel.addHook('afterFind',
         value.dataValues.password = null
         return value
       })
-    } else {
-      user.password = null
     }
   })
 
