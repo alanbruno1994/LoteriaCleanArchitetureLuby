@@ -1,20 +1,37 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { GameErrors } from '@business/modules/errors/game/gameErrors'
+import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { IGameRepositoryToken } from '@business/repositories/game/iGameRepository'
+import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { DeleteGameUseCase } from '@business/useCases/game/deleteGameUseCase'
 import { FindGameByUseCase } from '@business/useCases/game/findGameByUseCase'
 import { DeleteGameOperator } from '@controller/operations/game/deleteGame'
 import { InputDeleteGame } from '@controller/serializers/game/inputDeleteGame'
 import { container } from '@shared/ioc/container'
 import { fakeGameEntity } from '@tests/mock/fakes/entities/fakeGameEntity'
+import { FakeAccessProfileRepository } from '@tests/mock/fakes/repositories/fakeAccessRepository'
 import { FakeGameRepository, fakeGameRepositoryDelete, fakeGameRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeGameRepository'
+import { FakeUserRepository } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Delete game operator', () => {
   beforeAll(() => {
     container.bind(DeleteGameOperator).to(DeleteGameOperator)
     container.bind(FindGameByUseCase).to(FindGameByUseCase)
     container.bind(DeleteGameUseCase).to(DeleteGameUseCase)
     container.bind(IGameRepositoryToken).to(FakeGameRepository)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
+    container.bind(IUserRepositoryToken).to(FakeUserRepository)
   })
 
   afterAll(() => {
@@ -32,7 +49,7 @@ describe('Delete game operator', () => {
     )
 
     const operator = container.get(DeleteGameOperator)
-    const game_id = await operator.run(inputDeleteGame)
+    const game_id = await operator.run(inputDeleteGame,token_fake)
 
     expect(game_id.isLeft()).toBeFalsy()
 
@@ -50,7 +67,7 @@ describe('Delete game operator', () => {
       async () => void 0
     )
     const operator = container.get(DeleteGameOperator)
-    const game_id = await operator.run(inputDeleteGame)
+    const game_id = await operator.run(inputDeleteGame,token_fake)
 
     expect(game_id.isRight()).toBeFalsy()
 
@@ -74,7 +91,7 @@ describe('Delete game operator', () => {
     )
 
     const operator = container.get(DeleteGameOperator)
-    const game_id = await operator.run(inputDeleteGame)
+    const game_id = await operator.run(inputDeleteGame,token_fake)
 
     expect(game_id.isRight()).toBeFalsy()
 

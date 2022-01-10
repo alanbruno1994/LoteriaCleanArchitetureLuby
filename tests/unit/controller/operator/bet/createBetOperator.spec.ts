@@ -23,7 +23,15 @@ import { GameErrors } from '@business/modules/errors/game/gameErrors'
 import { FindUserByUseCase } from '@business/useCases/user/findUserByUseCase'
 import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
 import { IGameRepositoryToken } from '@business/repositories/game/iGameRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { FakeAccessProfileRepository } from '@tests/mock/fakes/repositories/fakeAccessRepository'
+import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Create bet operator', () => {
   const userNotFound = UserErrors.userNotFound()
   const gameNotFound = GameErrors.gameNotFound()
@@ -41,6 +49,12 @@ describe('Create bet operator', () => {
     container.bind(FindUserByUseCase).to(FindUserByUseCase)
     container.bind(FindGameByUseCase).to(FindGameByUseCase)
     container.bind(CreateBetOperator).to(CreateBetOperator)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
   })
 
   afterAll(() => {
@@ -49,7 +63,6 @@ describe('Create bet operator', () => {
 
   test('Should create a bet', async () => {
     const inputCreateBet = new InputCreateBet({
-      user_id: 1,
       game_id: 1,
       number_choose: '03,12,20,35,40,50',
       price_game: 2.5
@@ -60,7 +73,7 @@ describe('Create bet operator', () => {
     fakeGameRepositoryFindBy.mockImplementationOnce(async () => fakeGameEntity)
 
     const operator = container.get(CreateBetOperator)
-    const bet = await operator.run(inputCreateBet)
+    const bet = await operator.run(inputCreateBet,token_fake)
     expect(bet.isLeft()).toBeFalsy()
     expect(bet.isRight()).toBeTruthy()
     if (bet.isRight()) {
@@ -72,7 +85,6 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet with invalid game_id', async () => {
     const inputCreateBet = new InputCreateBet({
-      user_id: 1,
       game_id: 0,
       number_choose: '03,12,20,35,40,50',
       price_game: 2.5
@@ -80,24 +92,7 @@ describe('Create bet operator', () => {
 
     try {
       const operator = container.get(CreateBetOperator)
-      await operator.run(inputCreateBet)
-    } catch (error) {
-      expect(error).toBeInstanceOf(IError)
-    }
-    expect.assertions(1)
-  })
-
-  test('Should not create a bet with invalid user_id', async () => {
-    const inputCreateBet = new InputCreateBet({
-      user_id: 0,
-      game_id: 1,
-      number_choose: '03,12,20,35,40,50',
-      price_game: 2.5
-    })
-
-    try {
-      const operator = container.get(CreateBetOperator)
-      await operator.run(inputCreateBet)
+      await operator.run(inputCreateBet,token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -106,7 +101,6 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet with invalid numberChoose', async () => {
     const inputCreateBet = new InputCreateBet({
-      user_id: 1,
       game_id: 1,
       number_choose: '',
       price_game: 2.5
@@ -114,7 +108,7 @@ describe('Create bet operator', () => {
 
     try {
       const operator = container.get(CreateBetOperator)
-      await operator.run(inputCreateBet)
+      await operator.run(inputCreateBet,token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -123,7 +117,6 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet with invalid price_game', async () => {
     const inputCreateBet = new InputCreateBet({
-      user_id: 1,
       game_id: 1,
       number_choose: '03,12,20,35,40,50',
       price_game: -2.5
@@ -131,7 +124,7 @@ describe('Create bet operator', () => {
 
     try {
       const operator = container.get(CreateBetOperator)
-      await operator.run(inputCreateBet)
+      await operator.run(inputCreateBet,token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -140,7 +133,6 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet with an unexistent user', async () => {
     const inputCreateBet = new InputCreateBet({
-      user_id: 1,
       game_id: 1,
       number_choose: '03,12,20,35,40,50',
       price_game: 2.5
@@ -148,7 +140,7 @@ describe('Create bet operator', () => {
     fakeUserRepositoryFindBy.mockImplementation(async () => void 0)
     fakeGameRepositoryFindBy.mockImplementation(async () => fakeGameEntity)
     const operator = container.get(CreateBetOperator)
-    const bet = await operator.run(inputCreateBet)
+    const bet = await operator.run(inputCreateBet,token_fake)
     expect(bet.isLeft()).toBeTruthy()
     expect(bet.isRight()).toBeFalsy()
     if (bet.isLeft()) {
@@ -160,7 +152,6 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet with an unexistent game', async () => {
     const inputCreateBet = new InputCreateBet({
-      user_id: 1,
       game_id: 1,
       number_choose: '03,12,20,35,40,50',
       price_game: 2.5
@@ -168,7 +159,7 @@ describe('Create bet operator', () => {
     fakeUserRepositoryFindBy.mockImplementation(async () => fakeUserEntityPlayer)
     fakeGameRepositoryFindBy.mockImplementation(async () => void 0)
     const operator = container.get(CreateBetOperator)
-    const bet = await operator.run(inputCreateBet)
+    const bet = await operator.run(inputCreateBet,token_fake)
     expect(bet.isLeft()).toBeTruthy()
     expect(bet.isRight()).toBeFalsy()
     if (bet.isLeft()) {
@@ -180,7 +171,6 @@ describe('Create bet operator', () => {
 
   test('Should not create a bet if bet repository create method throws', async () => {
     const inputCreateBet = new InputCreateBet({
-      user_id: 1,
       game_id: 1,
       number_choose: '03,12,20,35,40,50',
       price_game: 2.5
@@ -193,7 +183,7 @@ describe('Create bet operator', () => {
     })
     const operator = container.get(CreateBetOperator)
 
-    const bet = await operator.run(inputCreateBet)
+    const bet = await operator.run(inputCreateBet,token_fake)
 
     expect(bet.isLeft()).toBeTruthy()
     expect(bet.isRight()).toBeFalsy()

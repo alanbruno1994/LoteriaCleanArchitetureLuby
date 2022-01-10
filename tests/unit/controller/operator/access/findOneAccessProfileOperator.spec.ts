@@ -1,17 +1,31 @@
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
 import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
+import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
 import { FindAccessProfileByUseCase } from '@business/useCases/access/findAccessProfileByUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { FindOneAccessProfileOperator } from '@controller/operations/access/findOneAccess'
 import { InputByAccessProfile } from '@controller/serializers/access/inputByAccessProfile'
 import { container } from '@shared/ioc/container'
 import { fakeAccessProfileEntity } from '@tests/mock/fakes/entities/fakeAccessProfileEntity'
 import { FakeAccessProfileRepository, fakeAccessProfileRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeAccessRepository'
+import { FakeUserRepository } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Find one bet operator', () => {
   beforeAll(() => {
     container.bind(FindOneAccessProfileOperator).to(FindOneAccessProfileOperator)
     container.bind(FindAccessProfileByUseCase).to(FindAccessProfileByUseCase)
     container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IUserRepositoryToken).to(FakeUserRepository)
   })
 
   afterAll(() => {
@@ -25,7 +39,7 @@ describe('Find one bet operator', () => {
     )
 
     const operator = container.get(FindOneAccessProfileOperator)
-    const betId = await operator.run(inputDeleteAccessProfile)
+    const betId = await operator.run(inputDeleteAccessProfile,token_fake)
 
     expect(betId.isLeft()).toBeFalsy()
 
@@ -43,7 +57,7 @@ describe('Find one bet operator', () => {
       async () => void 0
     )
     const operator = container.get(FindOneAccessProfileOperator)
-    const betId = await operator.run(inputDeleteAccessProfile)
+    const betId = await operator.run(inputDeleteAccessProfile,token_fake)
 
     expect(betId.isRight()).toBeFalsy()
 

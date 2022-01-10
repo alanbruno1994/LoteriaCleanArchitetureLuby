@@ -1,19 +1,36 @@
 import { BetErrors } from '@business/modules/errors/bet/betErrors'
+import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { IBetRepositoryToken } from '@business/repositories/bet/iBetRepository'
+import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { DeleteBetUseCase } from '@business/useCases/bet/deleteBetUseCase'
 import { FindBetByUseCase } from '@business/useCases/bet/findBetByUseCase'
 import { DeleteBetOperator } from '@controller/operations/bet/deleteBet'
 import { InputDeleteBet } from '@controller/serializers/bet/inputDeleteBet'
 import { container } from '@shared/ioc/container'
 import { fakeBetEntity } from '@tests/mock/fakes/entities/fakeBetEntity'
+import { FakeAccessProfileRepository } from '@tests/mock/fakes/repositories/fakeAccessRepository'
 import { FakeBetRepository, fakeBetRepositoryDelete, fakeBetRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeBetRepository'
+import { FakeUserRepository } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Delete bet operator', () => {
   beforeAll(() => {
     container.bind(DeleteBetOperator).to(DeleteBetOperator)
     container.bind(FindBetByUseCase).to(FindBetByUseCase)
     container.bind(DeleteBetUseCase).to(DeleteBetUseCase)
     container.bind(IBetRepositoryToken).to(FakeBetRepository)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
+    container.bind(IUserRepositoryToken).to(FakeUserRepository)
   })
 
   afterAll(() => {
@@ -31,7 +48,7 @@ describe('Delete bet operator', () => {
     )
 
     const operator = container.get(DeleteBetOperator)
-    const betId = await operator.run(inputDeleteBet)
+    const betId = await operator.run(inputDeleteBet,token_fake)
 
     expect(betId.isLeft()).toBeFalsy()
 
@@ -49,7 +66,7 @@ describe('Delete bet operator', () => {
       async () => void 0
     )
     const operator = container.get(DeleteBetOperator)
-    const betId = await operator.run(inputDeleteBet)
+    const betId = await operator.run(inputDeleteBet,token_fake)
 
     expect(betId.isRight()).toBeFalsy()
 
@@ -73,7 +90,7 @@ describe('Delete bet operator', () => {
     )
 
     const operator = container.get(DeleteBetOperator)
-    const betId = await operator.run(inputDeleteBet)
+    const betId = await operator.run(inputDeleteBet,token_fake)
 
     expect(betId.isRight()).toBeFalsy()
 

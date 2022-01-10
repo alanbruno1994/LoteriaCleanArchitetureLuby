@@ -1,17 +1,31 @@
 /* eslint-disable no-void */
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
 import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
+import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
 import { FindAllAccessProfileUseCase } from '@business/useCases/access/findAllAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { FindAllAccessProfileOperator } from '@controller/operations/access/findAllAccess'
 import { container } from '@shared/ioc/container'
 import { fakeAccessProfileList } from '@tests/mock/fakes/entities/fakeAccessProfileEntity'
 import { FakeAccessProfileRepository, fakeAccessProfileRepositoryFindAll } from '@tests/mock/fakes/repositories/fakeAccessRepository'
+import { FakeUserRepository } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Find all accesses operator', () => {
   beforeAll(() => {
     container.bind(FindAllAccessProfileUseCase).to(FindAllAccessProfileUseCase)
     container.bind(FindAllAccessProfileOperator).to(FindAllAccessProfileOperator)
     container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IUserRepositoryToken).to(FakeUserRepository)
   })
 
   afterAll(() => {
@@ -21,7 +35,7 @@ describe('Find all accesses operator', () => {
   test('Should find all accesses', async () => {
     const operator = container.get(FindAllAccessProfileOperator)
     fakeAccessProfileRepositoryFindAll.mockImplementationOnce(async () => (fakeAccessProfileList))
-    const accesses = await operator.run()
+    const accesses = await operator.run(token_fake)
 
     expect(accesses.isLeft()).toBeFalsy()
 
@@ -39,7 +53,7 @@ describe('Find all accesses operator', () => {
   test('Should returns error if acesss profile repository return void', async () => {
     const operator = container.get(FindAllAccessProfileOperator)
     fakeAccessProfileRepositoryFindAll.mockImplementationOnce(async () => void 0)
-    const accesses = await operator.run()
+    const accesses = await operator.run(token_fake)
 
     expect(accesses.isRight()).toBeFalsy()
 

@@ -1,5 +1,10 @@
 import { GameErrors } from '@business/modules/errors/game/gameErrors'
+import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { IGameRepositoryToken } from '@business/repositories/game/iGameRepository'
+import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { FindGameByUseCase } from '@business/useCases/game/findGameByUseCase'
 import { UpdateGameUseCase } from '@business/useCases/game/updateGameUseCase'
 import { UpdateGameOperator } from '@controller/operations/game/updateGame'
@@ -7,14 +12,26 @@ import { InputUpdateGame } from '@controller/serializers/game/inputUpdateGame'
 import { IError } from '@shared/iError'
 import { container } from '@shared/ioc/container'
 import { fakeCreatedGameEntity, fakeGameEntity } from '@tests/mock/fakes/entities/fakeGameEntity'
+import { FakeAccessProfileRepository } from '@tests/mock/fakes/repositories/fakeAccessRepository'
 import { FakeGameRepository, fakeGameRepositoryFindBy, fakeGameRepositoryUpdate } from '@tests/mock/fakes/repositories/fakeGameRepository'
+import { FakeUserRepository } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Update game operator', () => {
   beforeAll(() => {
     container.bind(IGameRepositoryToken).to(FakeGameRepository)
     container.bind(UpdateGameOperator).to(UpdateGameOperator)
     container.bind(FindGameByUseCase).to(FindGameByUseCase)
     container.bind(UpdateGameUseCase).to(UpdateGameUseCase)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
+    container.bind(IUserRepositoryToken).to(FakeUserRepository)
   })
 
   afterAll(() => {
@@ -29,7 +46,7 @@ describe('Update game operator', () => {
     )
     fakeGameRepositoryUpdate.mockImplementation(async () => ({ ...fakeGameEntity, ...fakeCreatedGameEntity }))
 
-    const game = await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d')
+    const game = await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',token_fake)
 
     expect(game.isLeft()).toBeFalsy()
 
@@ -47,7 +64,7 @@ describe('Update game operator', () => {
       // eslint-disable-next-line no-void
       async () => void 0
     )
-    const game = await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d')
+    const game = await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',token_fake)
 
     expect(game.isRight()).toBeFalsy()
 
@@ -70,7 +87,7 @@ describe('Update game operator', () => {
 
     try {
       const operator = container.get(UpdateGameOperator)
-      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d')
+      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -88,7 +105,7 @@ describe('Update game operator', () => {
 
     try {
       const operator = container.get(UpdateGameOperator)
-      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d')
+      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -106,7 +123,7 @@ describe('Update game operator', () => {
 
     try {
       const operator = container.get(UpdateGameOperator)
-      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d')
+      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -124,7 +141,7 @@ describe('Update game operator', () => {
 
     try {
       const operator = container.get(UpdateGameOperator)
-      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d')
+      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -142,7 +159,7 @@ describe('Update game operator', () => {
 
     try {
       const operator = container.get(UpdateGameOperator)
-      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d')
+      await operator.run(inputUpdateGame, '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }

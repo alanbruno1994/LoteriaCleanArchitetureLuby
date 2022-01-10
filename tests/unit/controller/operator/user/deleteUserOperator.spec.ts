@@ -1,20 +1,34 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { UserErrors } from '@business/modules/errors/user/userErrors'
+import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { DeleteUserUseCase } from '@business/useCases/user/deleteUserUseCase'
 import { FindUserByUseCase } from '@business/useCases/user/findUserByUseCase'
 import { DeleteUserOperator } from '@controller/operations/user/deleteUser'
 import { InputDeleteUser } from '@controller/serializers/user/inputDeleteUser'
 import { container } from '@shared/ioc/container'
 import { fakeUserEntityPlayer } from '@tests/mock/fakes/entities/fakeUserEntity'
+import { FakeAccessProfileRepository } from '@tests/mock/fakes/repositories/fakeAccessRepository'
 import { FakeUserRepository, fakeUserRepositoryDelete, fakeUserRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Delete user operator', () => {
   beforeAll(() => {
     container.bind(DeleteUserOperator).to(DeleteUserOperator)
     container.bind(FindUserByUseCase).to(FindUserByUseCase)
     container.bind(DeleteUserUseCase).to(DeleteUserUseCase)
     container.bind(IUserRepositoryToken).to(FakeUserRepository)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
   })
 
   afterAll(() => {
@@ -32,7 +46,7 @@ describe('Delete user operator', () => {
     )
 
     const operator = container.get(DeleteUserOperator)
-    const user_id = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser,token_fake)
 
     expect(user_id.isLeft()).toBeFalsy()
 
@@ -50,7 +64,7 @@ describe('Delete user operator', () => {
       async () => void 0
     )
     const operator = container.get(DeleteUserOperator)
-    const user_id = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser,token_fake)
 
     expect(user_id.isRight()).toBeFalsy()
 
@@ -74,7 +88,7 @@ describe('Delete user operator', () => {
     )
 
     const operator = container.get(DeleteUserOperator)
-    const user_id = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser,token_fake)
 
     expect(user_id.isRight()).toBeFalsy()
 

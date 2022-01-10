@@ -1,19 +1,33 @@
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
 import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
+import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
 import { DeleteAccessProfileUseCase } from '@business/useCases/access/deleteAccessProfileUseCase'
 import { FindAccessProfileByUseCase } from '@business/useCases/access/findAccessProfileByUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { DeleteAccessProfileOperator } from '@controller/operations/access/deleteAccess'
 import { InputDeleteAccessProfile } from '@controller/serializers/access/inputDeleteAccessProfile'
 import { container } from '@shared/ioc/container'
 import { fakeAccessProfileEntity } from '@tests/mock/fakes/entities/fakeAccessProfileEntity'
 import { FakeAccessProfileRepository, fakeAccessProfileRepositoryDelete, fakeAccessProfileRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeAccessRepository'
+import { FakeUserRepository } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Delete accessProfile operator', () => {
   beforeAll(() => {
     container.bind(DeleteAccessProfileOperator).to(DeleteAccessProfileOperator)
     container.bind(FindAccessProfileByUseCase).to(FindAccessProfileByUseCase)
     container.bind(DeleteAccessProfileUseCase).to(DeleteAccessProfileUseCase)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
     container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IUserRepositoryToken).to(FakeUserRepository)
   })
 
   afterAll(() => {
@@ -31,7 +45,7 @@ describe('Delete accessProfile operator', () => {
     )
 
     const operator = container.get(DeleteAccessProfileOperator)
-    const accessProfileId = await operator.run(inputDeleteAccessProfile)
+    const accessProfileId = await operator.run(inputDeleteAccessProfile,token_fake)
 
     expect(accessProfileId.isLeft()).toBeFalsy()
 
@@ -49,7 +63,7 @@ describe('Delete accessProfile operator', () => {
       async () => void 0
     )
     const operator = container.get(DeleteAccessProfileOperator)
-    const accessProfileId = await operator.run(inputDeleteAccessProfile)
+    const accessProfileId = await operator.run(inputDeleteAccessProfile,token_fake)
 
     expect(accessProfileId.isRight()).toBeFalsy()
 
@@ -73,7 +87,7 @@ describe('Delete accessProfile operator', () => {
     )
 
     const operator = container.get(DeleteAccessProfileOperator)
-    const accessProfileId = await operator.run(inputDeleteAccessProfile)
+    const accessProfileId = await operator.run(inputDeleteAccessProfile,token_fake)
 
     expect(accessProfileId.isRight()).toBeFalsy()
 

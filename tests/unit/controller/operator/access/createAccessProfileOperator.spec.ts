@@ -11,6 +11,15 @@ import { CreateAccessProlfileOperator } from '@controller/operations/access/crea
 import { CreateAccessProfileUseCase } from '@business/useCases/access/createAccessProfileUseCase'
 import { IError } from '@shared/iError'
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { FakeUserRepository } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
+
+const token_fake = 'token_valid_fake'
 
 describe('Create access profile operator', () => {
   const accessLevelAlreadyInUseError = AccessProfileErrors.accessProfileLevelAlreadyInUse()
@@ -25,6 +34,12 @@ describe('Create access profile operator', () => {
     container.bind(FindAccessProfileByUseCase).to(FindAccessProfileByUseCase)
     container.bind(CreateAccessProlfileOperator).to(CreateAccessProlfileOperator)
     container.bind(CreateAccessProfileUseCase).to(CreateAccessProfileUseCase)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IUserRepositoryToken).to(FakeUserRepository)
   })
 
   afterAll(() => {
@@ -35,10 +50,9 @@ describe('Create access profile operator', () => {
     const inputCreateAccess = new InputCreateAccessProfile({
       level: 'admin'
     })
-
     fakeAccessProfileRepositoryCreate.mockImplementationOnce(async () => fakeAccessProfileEntity)
     const operator = container.get(CreateAccessProlfileOperator)
-    const access = await operator.run(inputCreateAccess)
+    const access = await operator.run(inputCreateAccess,token_fake)
     expect(access.isLeft()).toBeFalsy()
     expect(access.isRight()).toBeTruthy()
     expect.assertions(2)
@@ -51,7 +65,7 @@ describe('Create access profile operator', () => {
 
     try {
       const operator = container.get(CreateAccessProlfileOperator)
-      await operator.run(inputCreateAccess)
+      await operator.run(inputCreateAccess,token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -62,11 +76,9 @@ describe('Create access profile operator', () => {
     const inputCreateAccess = new InputCreateAccessProfile({
       level: 'admin'
     })
-
     fakeAccessProfileRepositoryFindBy.mockImplementation(async () => fakeAccessProfileEntity)
     const operator = container.get(CreateAccessProlfileOperator)
-
-    const access = await operator.run(inputCreateAccess)
+    const access = await operator.run(inputCreateAccess,token_fake)
 
     expect(access.isLeft()).toBeTruthy()
     expect(access.isRight()).toBeFalsy()
@@ -90,7 +102,7 @@ describe('Create access profile operator', () => {
 
     const operator = container.get(CreateAccessProlfileOperator)
 
-    const access = await operator.run(inputCreateAccessProfile)
+    const access = await operator.run(inputCreateAccessProfile,token_fake)
 
     expect(access.isLeft()).toBeTruthy()
     expect(access.isRight()).toBeFalsy()

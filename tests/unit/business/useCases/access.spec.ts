@@ -225,7 +225,7 @@ describe('AccessProfile use cases', () => {
     test('Should returns all accesss', async () => {
       const useCase = container.get(FindAllAccessProfileUseCase)
       fakeAccessProfileRepositoryFindAll.mockImplementationOnce(async () => fakeAccessProfileList)
-      const accesssFound = await useCase.exec()
+      const accesssFound = await useCase.exec({ all: false })
 
       expect(accesssFound.isLeft()).toBeFalsy()
       if (accesssFound.isRight()) {
@@ -236,7 +236,7 @@ describe('AccessProfile use cases', () => {
 
     test('Should returns all accesss if not exists accesss', async () => {
       const useCase = container.get(FindAllAccessProfileUseCase)
-      const rolesFound = await useCase.exec()
+      const rolesFound = await useCase.exec({ all: false })
       expect(rolesFound.isRight()).toBeTruthy()
       expect.assertions(1)
     })
@@ -244,7 +244,7 @@ describe('AccessProfile use cases', () => {
     test('Should returns error if repository return undefined', async () => {
       const useCase = container.get(FindAllAccessProfileUseCase)
       fakeAccessProfileRepositoryFindAll.mockImplementationOnce(async () => void 0)
-      const rolesFound = await useCase.exec()
+      const rolesFound = await useCase.exec({ all: false })
       expect(rolesFound.isRight()).toBeFalsy()
       if (rolesFound.isLeft()) {
         expect(rolesFound.value.statusCode).toBe(

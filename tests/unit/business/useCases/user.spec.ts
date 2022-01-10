@@ -267,7 +267,7 @@ describe('User use cases', () => {
     test('Should returns all users', async () => {
       const useCase = container.get(FindAllUsersUseCase)
       fakeUserRepositoryFindAll.mockImplementationOnce(async () => fakeUsersList)
-      const usersFound = await useCase.exec()
+      const usersFound = await useCase.exec({ all: false })
 
       expect(usersFound.isLeft()).toBeFalsy()
       if (usersFound.isRight()) {
@@ -278,7 +278,7 @@ describe('User use cases', () => {
 
     test('Should returns all users if not exists users', async () => {
       const useCase = container.get(FindAllUsersUseCase)
-      const rolesFound = await useCase.exec()
+      const rolesFound = await useCase.exec({ all: false })
       expect(rolesFound.isRight()).toBeTruthy()
       expect.assertions(1)
     })
@@ -286,7 +286,7 @@ describe('User use cases', () => {
     test('Should returns error if repository return undefined', async () => {
       const useCase = container.get(FindAllUsersUseCase)
       fakeUserRepositoryFindAll.mockImplementationOnce(async () => void 0)
-      const rolesFound = await useCase.exec()
+      const rolesFound = await useCase.exec({ all: false })
       expect(rolesFound.isRight()).toBeFalsy()
       if (rolesFound.isLeft()) {
         expect(rolesFound.value.statusCode).toBe(

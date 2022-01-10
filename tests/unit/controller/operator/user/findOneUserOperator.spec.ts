@@ -1,18 +1,32 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { UserErrors } from '@business/modules/errors/user/userErrors'
+import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { FindUserByUseCase } from '@business/useCases/user/findUserByUseCase'
 import { FindOneUserOperator } from '@controller/operations/user/findOneUser'
 import { InputByUser } from '@controller/serializers/user/inputByUser'
 import { container } from '@shared/ioc/container'
 import { fakeUserEntityPlayer } from '@tests/mock/fakes/entities/fakeUserEntity'
+import { FakeAccessProfileRepository } from '@tests/mock/fakes/repositories/fakeAccessRepository'
 import { FakeUserRepository, fakeUserRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeUserRepository'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Find one user operator', () => {
   beforeAll(() => {
     container.bind(FindOneUserOperator).to(FindOneUserOperator)
     container.bind(FindUserByUseCase).to(FindUserByUseCase)
     container.bind(IUserRepositoryToken).to(FakeUserRepository)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+    container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
   })
 
   afterAll(() => {
@@ -26,7 +40,7 @@ describe('Find one user operator', () => {
     )
 
     const operator = container.get(FindOneUserOperator)
-    const user_id = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser,token_fake)
 
     expect(user_id.isLeft()).toBeFalsy()
 
@@ -44,7 +58,7 @@ describe('Find one user operator', () => {
       async () => void 0
     )
     const operator = container.get(FindOneUserOperator)
-    const user_id = await operator.run(inputDeleteUser)
+    const user_id = await operator.run(inputDeleteUser,token_fake)
 
     expect(user_id.isRight()).toBeFalsy()
 

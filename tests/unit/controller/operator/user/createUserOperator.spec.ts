@@ -20,7 +20,13 @@ import { IAccessProfileRepositoryToken } from '@business/repositories/accessprof
 import { IError } from '@shared/iError'
 import { UserErrors } from '@business/modules/errors/user/userErrors'
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
+import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
+const token_fake = 'token_valid_fake'
 describe('Create user operator', () => {
   const userEmailAlreadyInUseError = UserErrors.userEmailAlreadyInUse()
   const accessNotFoundError = AccessProfileErrors.accessProfileNotFound()
@@ -38,6 +44,11 @@ describe('Create user operator', () => {
     container.bind(FindAccessProfileByUseCase).to(FindAccessProfileByUseCase)
     container.bind(CreateUserAdminOperator).to(CreateUserAdminOperator)
     container.bind(CreateUserPlayerOperator).to(CreateUserPlayerOperator)
+    container.bind(AuthorizeAccessProfileUseCase).to(FakerAuthorizeAccessProfileUseCase)
+    container
+      .bind(IAuthenticatorServiceToken)
+      .to(FakerAuthenticatorServiceToken)
+    container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
   })
 
   afterAll(() => {
@@ -60,7 +71,7 @@ describe('Create user operator', () => {
       updated_at: new Date()
     }))
     const operator = container.get(CreateUserAdminOperator)
-    const user = await operator.run(inputCreateUser)
+    const user = await operator.run(inputCreateUser,token_fake)
     expect(user.isLeft()).toBeFalsy()
     expect(user.isRight()).toBeTruthy()
     if (user.isRight()) {
@@ -103,7 +114,7 @@ describe('Create user operator', () => {
 
     try {
       const operator = container.get(CreateUserAdminOperator)
-      await operator.run(inputCreateUser)
+      await operator.run(inputCreateUser,token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -119,7 +130,7 @@ describe('Create user operator', () => {
 
     try {
       const operator = container.get(CreateUserAdminOperator)
-      await operator.run(inputCreateUser)
+      await operator.run(inputCreateUser,token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -135,7 +146,7 @@ describe('Create user operator', () => {
 
     try {
       const operator = container.get(CreateUserAdminOperator)
-      await operator.run(inputCreateUser)
+      await operator.run(inputCreateUser,token_fake)
     } catch (error) {
       expect(error).toBeInstanceOf(IError)
     }
@@ -152,7 +163,7 @@ describe('Create user operator', () => {
     fakeUserRepositoryFindBy.mockImplementation(async () => fakeUserEntityAdmin)
     const operator = container.get(CreateUserAdminOperator)
 
-    const user = await operator.run(inputCreateUser)
+    const user = await operator.run(inputCreateUser,token_fake)
 
     expect(user.isLeft()).toBeTruthy()
     expect(user.isRight()).toBeFalsy()
@@ -176,7 +187,7 @@ describe('Create user operator', () => {
 
     const operator = container.get(CreateUserAdminOperator)
 
-    const user = await operator.run(inputCreateUser)
+    const user = await operator.run(inputCreateUser,token_fake)
 
     expect(user.isLeft()).toBeTruthy()
     expect(user.isRight()).toBeFalsy()
@@ -209,7 +220,7 @@ describe('Create user operator', () => {
 
     const operator = container.get(CreateUserAdminOperator)
 
-    const user = await operator.run(inputCreateUser)
+    const user = await operator.run(inputCreateUser,token_fake)
 
     expect(user.isLeft()).toBeTruthy()
     expect(user.isRight()).toBeFalsy()
