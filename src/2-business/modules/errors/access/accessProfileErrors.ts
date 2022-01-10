@@ -73,4 +73,28 @@ export class AccessProfileErrors extends IError {
     })
     return userErrors
   }
+
+  static notAuthorzieAccessProfile (): IError {
+    const access = new AccessProfileErrors({
+      statusCode: 423,
+      body: {
+        code: 'AP-007',
+        message: 'You cannot have this access!',
+        shortMessage: 'notAuthorize'
+      }
+    })
+    return access
+  }
+
+  static notAuthorzieAccessProfileNotUserFound (): IError {
+    const access = new AccessProfileErrors({
+      statusCode: 423,
+      body: {
+        code: 'AP-008',
+        message: 'The user performing the operation does not exist!',
+        shortMessage: 'notAuthorize'
+      }
+    })
+    return access
+  }
 }

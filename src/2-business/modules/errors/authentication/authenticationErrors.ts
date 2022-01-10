@@ -14,11 +14,37 @@ export class AuthenticationErrors extends IError {
     return authenticationError
   }
 
+  static invalidToken (): IError {
+    const authenticationError = new AuthenticationErrors({
+      statusCode: 423,
+      body: {
+        code: 'AE-002',
+        message: 'Token is not valid',
+        shortMessage: 'wrongToken'
+      }
+    })
+
+    return authenticationError
+  }
+
+  static erroInValidToken (): IError {
+    const authenticationError = new AuthenticationErrors({
+      statusCode: 500,
+      body: {
+        code: 'AE-003',
+        message: 'Unable to validate token!',
+        shortMessage: 'unableValidToken'
+      }
+    })
+
+    return authenticationError
+  }
+
   static tokenCreationError (): IError {
     const authenticationError = new AuthenticationErrors({
       statusCode: 500,
       body: {
-        code: 'AE-002',
+        code: 'AE-004',
         message: 'Token creation error',
         shortMessage: 'tokenCreationError'
       }

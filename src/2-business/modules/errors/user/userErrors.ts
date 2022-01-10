@@ -73,4 +73,28 @@ export class UserErrors extends IError {
     })
     return userErrors
   }
+
+  static userEmailNotSent (): IError {
+    const userErrors = new UserErrors({
+      statusCode: 500,
+      body: {
+        code: 'UE-007',
+        message: 'The email could not be sent',
+        shortMessage: 'userEmailNotSent'
+      }
+    })
+    return userErrors
+  }
+
+  static userExpiredToken (): IError {
+    const userErrors = new UserErrors({
+      statusCode: 500,
+      body: {
+        code: 'UE-008',
+        message: 'The token was espired',
+        shortMessage: 'userTokenExpired'
+      }
+    })
+    return userErrors
+  }
 }
