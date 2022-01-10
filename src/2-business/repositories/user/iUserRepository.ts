@@ -9,12 +9,16 @@ import 'reflect-metadata'
 // por exemplo
 export type UserEntityKeys = keyof Omit<
 IUserEntity,
-'access' | 'password' | 'created_at' | 'updated_at'
+'access' | 'bets' | 'password' | 'created_at' | 'updated_at'
 >
 
 export interface IInputUpdateUser {
   updateWhere: IWhere<UserEntityKeys, string | number>
   newData: Partial<IUserEntity>
+}
+
+export interface IInputFindAll {
+  all: boolean
 }
 // Isso aqui vai ser usado na interface repository
 export interface IInputDeleteUser {
@@ -32,7 +36,7 @@ export interface IUserRepository {
     relations?: Array<IRelation<string, UserEntityKeys>>
   ) => Promise<void | IUserEntity>
   update: (input: IInputUpdateUser) => Promise<Partial<IUserEntity> | void>
-  findAll: () => Promise<Array<Omit<IUserEntity, 'password'>> | void>
+  findAll: (relations?: Array<IRelation<string, UserEntityKeys>>) => Promise<Array<Omit<IUserEntity, 'password'>> | void>
   delete: (input: IInputDeleteUser) => Promise<IUserEntity | void>
 }
 // Isso aqui vai ser usada para que algem injete dinamente

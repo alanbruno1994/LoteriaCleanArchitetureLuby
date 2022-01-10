@@ -8,7 +8,7 @@ import 'reflect-metadata'
 // por exemplo
 export type AccessProfileEntityKeys = keyof Omit<
 IAccessProfileEntity,
-'game' |'user' | 'password' | 'created_at' | 'updated_at'
+'game' |'users' | 'password' | 'created_at' | 'updated_at'
 >
 export interface IInputUpdateAccess {
   updateWhere: IWhere<AccessProfileEntityKeys, string | number>
@@ -31,7 +31,7 @@ export interface IAccessProfileRepository {
     relations?: Array<IRelation<string, AccessProfileEntityKeys>>
   ) => Promise<void | IAccessProfileEntity>
   update: (input: IInputUpdateAccess) => Promise<Partial<IAccessProfileEntity> | void>
-  findAll: () => Promise<IAccessProfileEntity[] | void>
+  findAll: (relations?: Array<IRelation<string, AccessProfileEntityKeys>>) => Promise<IAccessProfileEntity[] | void>
   delete: (input: IInputDeleteAccess) => Promise<IAccessProfileEntity | void>
 }
 // Isso aqui vai ser usada para que algem injete dinamente
