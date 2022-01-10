@@ -1,12 +1,13 @@
-import { IInputCreateBetDto } from '@business/dto/bet/create'
 import { IsString, MinLength, IsNumber, Min } from 'class-validator'
 import { AbstractSerializer } from '../abstractSerializer'
 
-export class InputCreateBet extends AbstractSerializer<IInputCreateBetDto> {
-  @IsNumber()
-  @Min(1)
-  user_id!: number
+export interface IInputCreateBet {
+  game_id: number
+  price_game: number
+  number_choose: string
+}
 
+export class InputCreateBet extends AbstractSerializer<IInputCreateBet> {
   @IsNumber()
   @Min(1)
   game_id!: number
