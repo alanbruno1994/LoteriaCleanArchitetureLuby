@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --detectOpenHandles",
+    "test": "STAGE=test jest --passWithNoTests --silent --noStackTrace --runInBand --detectOpenHandles",
     "test:verbose": "STAGE=test jest --passWithNoTests --runInBand --forceExit",
-    "test:unit": "npm test -- --watch -c jest-unit-config.js",
-    "test:integration": "npm test -- --watch -c jest-integration-config.js",
-    "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage",
+    "test:unit": "STAGE=tes npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "STAGE=test npm test -- --watch -c jest-integration-config.js",
+    "test:staged": "STAGE=test npm test -- --findRelatedTests",
+    "test:ci": "STAGE=test npm test -- --coverage",
     "prepare": "husky install",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/4-framework/server.ts",
     "build": "tsc"
