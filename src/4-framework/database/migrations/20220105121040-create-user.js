@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      token_recover_password_create_date: {
+      token_recover_password_expire_date: {
         type: Sequelize.DATE,
         allowNull: true
       },
