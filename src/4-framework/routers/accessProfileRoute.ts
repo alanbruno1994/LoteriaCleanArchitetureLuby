@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { Request, Response, Router } from 'express'
 import '@framework/ioc/inversify.config'
 import { container } from '@shared/ioc/container'
@@ -13,10 +14,11 @@ import { InputUpdateAccessProfile } from '@controller/serializers/access/inputUp
 import { IError } from '@shared/iError'
 const routeAccessProfile = Router() // Aqui é usado para registrar as rotas
 
-routeAccessProfile.get('/access', async (_req: Request,res: Response) => {
+routeAccessProfile.get('/access', async (req: Request,res: Response) => {
   try {
     const operator = container.get(FindAllAccessProfileOperator)
-    const accesss = await operator.run()
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const accesss = await operator.run(token,!!req.query.all)
     if (accesss.isLeft()) {
       return res.status(accesss.value.statusCode).send(accesss.value.body)
     }
@@ -33,7 +35,8 @@ routeAccessProfile.get('/access/:secureId', async (req: Request,res: Response) =
   try {
     const operator = container.get(FindOneAccessProfileOperator)
     const input = new InputByAccessProfile({ secure_id: req.params.secureId })
-    const accesss = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const accesss = await operator.run(input,token)
     if (accesss.isLeft()) {
       return res.status(accesss.value.statusCode).send(accesss.value.body)
     }
@@ -50,7 +53,8 @@ routeAccessProfile.post('/access', async (req: Request,res: Response) => {
   try {
     const operator = container.get(CreateAccessProlfileOperator)
     const input = new InputCreateAccessProfile(req.body)
-    const accesss = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const accesss = await operator.run(input,token)
     if (accesss.isLeft()) {
       return res.status(accesss.value.statusCode).send(accesss.value.body)
     }
@@ -59,6 +63,7 @@ routeAccessProfile.post('/access', async (req: Request,res: Response) => {
     if (error instanceof IError) {
       return res.status(error.statusCode).send(error.body)
     }
+    console.log(error)
     return res.status(500).send('Internal server error!')
   }
 })
@@ -67,7 +72,8 @@ routeAccessProfile.put('/access/:secure_id', async (req: Request,res: Response) 
   try {
     const operator = container.get(UpdateAccessProfileOperator)
     const input = new InputUpdateAccessProfile(req.body)
-    const accesss = await operator.run(input,req.params.secure_id)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const accesss = await operator.run(input,req.params.secure_id,token)
     if (accesss.isLeft()) {
       return res.status(accesss.value.statusCode).send(accesss.value.body)
     }
@@ -84,7 +90,8 @@ routeAccessProfile.delete('/access/:secure_id', async (req: Request,res: Respons
   try {
     const operator = container.get(DeleteAccessProfileOperator)
     const input = new InputDeleteAccessProfile({ secure_id: req.params.secure_id })
-    const accesss = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const accesss = await operator.run(input,token)
     if (accesss.isLeft()) {
       return res.status(accesss.value.statusCode).send(accesss.value.body)
     }

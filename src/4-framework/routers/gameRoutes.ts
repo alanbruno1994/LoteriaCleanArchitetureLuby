@@ -13,10 +13,11 @@ import { CreateGameOperator } from '@controller/operations/game/createGame'
 import { IError } from '@shared/iError'
 const routeGame = Router() // Aqui é usado para registrar as rotas
 
-routeGame.get('/game', async (_req: Request,res: Response) => {
+routeGame.get('/game', async (req: Request,res: Response) => {
   try {
     const operator = container.get(FindAllGamesOperator)
-    const games = await operator.run()
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const games = await operator.run(token)
     if (games.isLeft()) {
       return res.status(games.value.statusCode).send(games.value.body)
     }
@@ -33,7 +34,8 @@ routeGame.get('/game/:secure_id', async (req: Request,res: Response) => {
   try {
     const operator = container.get(FindOneGameOperator)
     const input = new InputByGame({ secure_id: req.params.secure_id })
-    const games = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const games = await operator.run(input,token)
     if (games.isLeft()) {
       return res.status(games.value.statusCode).send(games.value.body)
     }
@@ -50,7 +52,8 @@ routeGame.post('/game', async (req: Request,res: Response) => {
   try {
     const operator = container.get(CreateGameOperator)
     const input = new InputCreateGame(req.body)
-    const games = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const games = await operator.run(input,token)
     if (games.isLeft()) {
       return res.status(games.value.statusCode).send(games.value.body)
     }
@@ -67,7 +70,8 @@ routeGame.put('/game/:secure_id', async (req: Request,res: Response) => {
   try {
     const operator = container.get(UpdateGameOperator)
     const input = new InputUpdateGame(req.body)
-    const games = await operator.run(input,req.params.secure_id)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const games = await operator.run(input,req.params.secure_id,token)
     if (games.isLeft()) {
       return res.status(games.value.statusCode).send(games.value.body)
     }
@@ -84,7 +88,8 @@ routeGame.delete('/game/:secure_id', async (req: Request,res: Response) => {
   try {
     const operator = container.get(DeleteGameOperator)
     const input = new InputDeleteGame({ secure_id: req.params.secure_id })
-    const games = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const games = await operator.run(input,token)
     if (games.isLeft()) {
       return res.status(games.value.statusCode).send(games.value.body)
     }

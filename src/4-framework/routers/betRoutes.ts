@@ -13,10 +13,11 @@ import { CreateBetOperator } from '@controller/operations/bet/createBet'
 import { IError } from '@shared/iError'
 const routeBet = Router() // Aqui é usado para registrar as rotas
 
-routeBet.get('/bet', async (_req: Request,res: Response) => {
+routeBet.get('/bet', async (req: Request,res: Response) => {
   try {
     const operator = container.get(FindAllBetOperator)
-    const bets = await operator.run()
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const bets = await operator.run(token)
     if (bets.isLeft()) {
       return res.status(bets.value.statusCode).send(bets.value.body)
     }
@@ -33,7 +34,8 @@ routeBet.get('/bet/:secure_id', async (req: Request,res: Response) => {
   try {
     const operator = container.get(FindOneBetOperator)
     const input = new InputByBet({ secure_id: req.params.secure_id })
-    const bets = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const bets = await operator.run(input,token)
     if (bets.isLeft()) {
       return res.status(bets.value.statusCode).send(bets.value.body)
     }
@@ -50,7 +52,8 @@ routeBet.post('/bet', async (req: Request,res: Response) => {
   try {
     const operator = container.get(CreateBetOperator)
     const input = new InputCreateBet(req.body)
-    const bets = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const bets = await operator.run(input,token)
     if (bets.isLeft()) {
       return res.status(bets.value.statusCode).send(bets.value.body)
     }
@@ -67,7 +70,8 @@ routeBet.put('/bet/:secure_id', async (req: Request,res: Response) => {
   try {
     const operator = container.get(UpdateBetOperator)
     const input = new InputUpdateBet(req.body)
-    const bets = await operator.run(input,req.params.secure_id)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const bets = await operator.run(input,req.params.secure_id,token)
     if (bets.isLeft()) {
       return res.status(bets.value.statusCode).send(bets.value.body)
     }
@@ -84,7 +88,8 @@ routeBet.delete('/bet/:secure_id', async (req: Request,res: Response) => {
   try {
     const operator = container.get(DeleteBetOperator)
     const input = new InputDeleteBet({ secure_id: req.params.secure_id })
-    const bets = await operator.run(input)
+    const token = ('' + req.headers.authorization).replace('Bearer ','')
+    const bets = await operator.run(input,token)
     if (bets.isLeft()) {
       return res.status(bets.value.statusCode).send(bets.value.body)
     }
