@@ -36,7 +36,6 @@ IOutputAuthenticateUseCase
     input: InputCreateAuthentication
   ): Promise<IOutputAuthenticateUseCase> {
     await this.exec(input)
-
     const userResult = await this.findUserByUseCase.exec({
       key: 'email',
       value: input.email
@@ -45,8 +44,6 @@ IOutputAuthenticateUseCase
     if (userResult.isLeft()) {
       return left(UserErrors.userNotFound())
     }
-    console.log('sss ',userResult.value)
-
     const isPasswordCorrectResult = await this.hasherService.compare(
       input.password,
       userResult.value.password
