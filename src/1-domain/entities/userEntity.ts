@@ -3,9 +3,11 @@ import { AbstractEntity } from '@domain/abstractEntity'
 import { ITimestamps } from '@domain/timestamps'
 import { right, Right } from '@shared/either'
 import { IAccessProfileEntity } from './accessProfileEntity'
+import { IBetEntity } from './betEntity'
 
 export interface IUserEntityRelations { // Aqui serve para definir as relacoes da entidade
   access: IAccessProfileEntity
+  bets: IBetEntity
 }
 
 // Esse Partial inda os atributos sao opcionais
@@ -17,7 +19,7 @@ export interface IUserEntity extends ITimestamps, Partial<IUserEntityRelations>{
   password: string
   access_profile_id: number
   token_recover_password?: string
-  token_recover_password_create_date?: Date | undefined
+  token_recover_password_expire_date?: Date | undefined
 }
 // O Pick constrói um tipo escolhendo o conjunto de propriedades
 export type InputUserEntity = Pick<
