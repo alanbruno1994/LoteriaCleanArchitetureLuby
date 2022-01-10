@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { IRelation } from '@root/src/2-business/repositories/relation'
 import { inject, injectable } from 'inversify'
 import { AccessProfileEntityKeys, IAccessProfileRepository, IInputDeleteAccess, IInputUpdateAccess } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { IAccessProfileEntity } from '@domain/entities/accessProfileEntity'
 import { AccessProfileModel } from '@framework/database/models/accessprofileModel'
-
+// import setupRelations from '../models/setupRelations'
 @injectable()
 export class AccessProfileRepository implements IAccessProfileRepository {
-  constructor (@inject(AccessProfileModel) private readonly accessProfileModel: typeof AccessProfileModel) {}
+  constructor (@inject(AccessProfileModel) private readonly accessProfileModel: typeof AccessProfileModel) {
+  //  this.user = setupRelations().UserModel
+  }
 
   async create (
     inputAccessProfileEntity: Omit<IAccessProfileEntity, 'id'>
@@ -69,9 +72,16 @@ export class AccessProfileRepository implements IAccessProfileRepository {
     }
   }
 
-  async findAll (): Promise<IAccessProfileEntity[] | void> {
+  async findAll (relations?: Array<IRelation<string, AccessProfileEntityKeys>>): Promise<IAccessProfileEntity[] | void> {
     try {
-      const accessProfilesResult = await this.accessProfileModel.findAll()
+      const accessProfilesResult = await this.accessProfileModel.findAll(
+        {
+          include:
+          relations?.map((relation) => ({
+            association: relation.tableName
+          }))
+        }
+      )
       return accessProfilesResult
     } catch (error) {
       console.error(error)
