@@ -5,13 +5,11 @@ export const IAuthenticatorServiceToken = Symbol.for(
   'IAuthenticatorServiceToken'
 )
 
-export interface ITokenVerifyFormat {
-  [index: string]: number | string
-}
-
 // Aqui se espera que no futuro alguem que use gere token ou que os validem
 // implemente esta interface
 export interface IAuthenticatorService {
   sign: (payload: { [k: string]: string | number | boolean }) => Promise<string>
-  verify: (token: string) => Promise<ITokenVerifyFormat | IError>
+  verify: (token: string) => Promise<{verify: boolean
+    user_secure_id: string
+    user_id: number } | IError>
 }
