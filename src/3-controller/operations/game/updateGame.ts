@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { IOutputUpdateGameDto } from '@business/dto/game/update'
 import { GameErrors } from '@business/modules/errors/game/gameErrors'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { FindGameByUseCase } from '@business/useCases/game/findGameByUseCase'
 import { UpdateGameUseCase } from '@business/useCases/game/updateGameUseCase'
 import { InputUpdateGame } from '@controller/serializers/game/inputUpdateGame'
@@ -16,15 +18,25 @@ IOutputUpdateGameDto
 > {
   constructor (
     @inject(FindGameByUseCase) private readonly findGameByUseCase: FindGameByUseCase,
-    @inject(UpdateGameUseCase) private readonly updateGameUseCase: UpdateGameUseCase
+    @inject(UpdateGameUseCase) private readonly updateGameUseCase: UpdateGameUseCase,
+    @inject(VerifyTokenUseCase) private readonly verifyUseCase: VerifyTokenUseCase,
+    @inject(AuthorizeAccessProfileUseCase) private readonly authorizeAccessProfileUseCase: AuthorizeAccessProfileUseCase
   ) {
     super()
   }
 
   async run (
-    input: InputUpdateGame, secure_id: string
+    input: InputUpdateGame, secure_id: string,token: string
   ): Promise<IOutputUpdateGameDto> {
     this.exec(input)
+    const validToken = await this.verifyUseCase.exec({ token })
+    if (validToken.isLeft()) {
+      return left(validToken.value)
+    }
+    const authorize = await this.authorizeAccessProfileUseCase.exec({ id: validToken.value.user_id })
+    if (authorize.isLeft()) {
+      return left(authorize.value)
+    }
     const existentGame = await this.findGameByUseCase.exec({
       key: 'secure_id',
       value: secure_id

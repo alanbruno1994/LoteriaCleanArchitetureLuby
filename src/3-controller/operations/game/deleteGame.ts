@@ -1,5 +1,7 @@
 import { IOutputDeleteGameDto } from '@business/dto/game/delete'
 import { GameErrors } from '@business/modules/errors/game/gameErrors'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { DeleteGameUseCase } from '@business/useCases/game/deleteGameUseCase'
 import { FindGameByUseCase } from '@business/useCases/game/findGameByUseCase'
 import { InputDeleteGame } from '@controller/serializers/game/inputDeleteGame'
@@ -13,16 +15,26 @@ InputDeleteGame,
 IOutputDeleteGameDto
 > {
   constructor (
+    @inject(VerifyTokenUseCase) private readonly verifyUseCase: VerifyTokenUseCase,
     @inject(FindGameByUseCase) private readonly findGameByUseCase: FindGameByUseCase,
-    @inject(DeleteGameUseCase) private readonly deleteGameUseCase: DeleteGameUseCase
+    @inject(DeleteGameUseCase) private readonly deleteGameUseCase: DeleteGameUseCase,
+    @inject(AuthorizeAccessProfileUseCase) private readonly authorizeAccessProfileUseCase: AuthorizeAccessProfileUseCase
   ) {
     super()
   }
 
   async run (
-    input: InputDeleteGame
+    input: InputDeleteGame,token: string
   ): Promise<IOutputDeleteGameDto> {
     await this.exec(input)
+    const validToken = await this.verifyUseCase.exec({ token })
+    if (validToken.isLeft()) {
+      return left(validToken.value)
+    }
+    const authorize = await this.authorizeAccessProfileUseCase.exec({ id: validToken.value.user_id })
+    if (authorize.isLeft()) {
+      return left(authorize.value)
+    }
     const gameForDeletion = await this.findGameByUseCase.exec({
       key: 'secure_id',
       value: input.secure_id

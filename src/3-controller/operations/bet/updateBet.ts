@@ -4,6 +4,8 @@ import { IOutputUpdateBetDto } from '@business/dto/bet/update'
 import { BetErrors } from '@business/modules/errors/bet/betErrors'
 import { GameErrors } from '@business/modules/errors/game/gameErrors'
 import { UserErrors } from '@business/modules/errors/user/userErrors'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { FindBetByUseCase } from '@business/useCases/bet/findBetByUseCase'
 import { UpdateBetUseCase } from '@business/useCases/bet/updateBetUseCase'
 import { FindGameByUseCase } from '@business/useCases/game/findGameByUseCase'
@@ -22,15 +24,25 @@ IOutputUpdateBetDto
     @inject(FindBetByUseCase) private readonly findBetByUseCase: FindBetByUseCase,
     @inject(FindGameByUseCase) private readonly findGameUseCase: FindGameByUseCase,
     @inject(FindUserByUseCase) private readonly findUserUseCase: FindUserByUseCase,
-    @inject(UpdateBetUseCase) private readonly updateRoleUseCase: UpdateBetUseCase
+    @inject(UpdateBetUseCase) private readonly updateRoleUseCase: UpdateBetUseCase,
+    @inject(VerifyTokenUseCase) private readonly verifyUseCase: VerifyTokenUseCase,
+    @inject(AuthorizeAccessProfileUseCase) private readonly authorizeAccessProfileUseCase: AuthorizeAccessProfileUseCase
   ) {
     super()
   }
 
   async run (
-    input: InputUpdateBet, secure_id: string
+    input: InputUpdateBet, secure_id: string,token: string
   ): Promise<IOutputUpdateBetDto> {
     this.exec(input)
+    const validToken = await this.verifyUseCase.exec({ token })
+    if (validToken.isLeft()) {
+      return left(validToken.value)
+    }
+    const authorize = await this.authorizeAccessProfileUseCase.exec({ id: validToken.value.user_id })
+    if (authorize.isLeft()) {
+      return left(authorize.value)
+    }
     const existentBet = await this.findBetByUseCase.exec({
       key: 'secure_id',
       value: secure_id

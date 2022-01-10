@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { IOutputUpdateUserDto } from '@business/dto/user/update'
 import { UserErrors } from '@business/modules/errors/user/userErrors'
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { FindUserByUseCase } from '@business/useCases/user/findUserByUseCase'
 import { UpdateUserUseCase } from '@business/useCases/user/updateUserUseCase'
 import { InputUpdateUser } from '@controller/serializers/user/inputUpdateUser'
@@ -15,16 +17,27 @@ InputUpdateUser,
 IOutputUpdateUserDto
 > {
   constructor (
+    @inject(VerifyTokenUseCase) private readonly verifyUseCase: VerifyTokenUseCase,
     @inject(FindUserByUseCase) private readonly findUserByUseCase: FindUserByUseCase,
-    @inject(UpdateUserUseCase) private readonly updateUserUseCase: UpdateUserUseCase
+    @inject(UpdateUserUseCase) private readonly updateUserUseCase: UpdateUserUseCase,
+    @inject(AuthorizeAccessProfileUseCase) private readonly authorizeAccessProfileUseCase: AuthorizeAccessProfileUseCase
   ) {
     super()
   }
 
   async run (
-    input: InputUpdateUser, secure_id: string
+    input: InputUpdateUser, secure_id: string, token: string
   ): Promise<IOutputUpdateUserDto> {
     this.exec(input)
+
+    const validToken = await this.verifyUseCase.exec({ token })
+    if (validToken.isLeft()) {
+      return left(validToken.value)
+    }
+    const authorize = await this.authorizeAccessProfileUseCase.exec({ id: validToken.value.user_id })
+    if (authorize.isLeft()) {
+      return left(authorize.value)
+    }
     const existentUser = await this.findUserByUseCase.exec({
       key: 'secure_id',
       value: secure_id
