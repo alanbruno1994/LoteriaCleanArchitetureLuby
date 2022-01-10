@@ -13,7 +13,7 @@ export const fakeAccessProfileEntity: IAccessProfileEntity = {
   ...fakeCreatedAccessProfileEntity,
   id: 1,
   secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',
-  user: undefined,
+  users: undefined,
   created_at: new Date(),
   updated_at: new Date()
 }

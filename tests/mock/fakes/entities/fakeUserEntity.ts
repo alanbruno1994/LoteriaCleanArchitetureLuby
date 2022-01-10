@@ -19,7 +19,7 @@ export const fakeUserEntityPlayer: IUserEntity = {
   id: 1,
   access_profile_id: 2,
   token_recover_password: '',
-  token_recover_password_create_date: undefined,
+  token_recover_password_expire_date: undefined,
   secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',
   access: {
     id: 1,
@@ -37,7 +37,7 @@ export const fakeUserEntityAdmin: IUserEntity = {
   id: 1,
   access_profile_id: 1,
   token_recover_password: '',
-  token_recover_password_create_date: undefined,
+  token_recover_password_expire_date: undefined,
   secure_id: '7b1f3001-6a4b-4bdd-90e9-8a280fff017d',
   access: {
     id: 1,
