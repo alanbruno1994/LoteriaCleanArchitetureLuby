@@ -1,16 +1,14 @@
 require('dotenv').config()
 
 const STAGE = process.env.STAGE ?? 'dev'
-
 let config = {
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 3306,
-  username: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '12345',
-  database: process.env.DB_NAME || 'serverless',
-  dialect: process.env.DB_DIALECT
+  host: STAGE === 'test' ? process.env.DB_TEST_HOST : process.env.DB_HOST,
+  port: STAGE === 'test' ? process.env.DB_TEST_PORT : process.env.DB_PORT,
+  username: STAGE === 'test' ? process.env.DB_TEST_USER : process.env.DB_USER,
+  password: STAGE === 'test' ? process.env.DB_TEST_PASSWORD : process.env.DB_PASSWORD,
+  database: STAGE === 'test' ? process.env.DB_TEST_NAME : process.env.DB_NAME,
+  dialect: STAGE === 'test' ? process.env.DB_TEST_DIALECT : process.env.DB_DIALECT
 }
-
 if (['prod', 'production'].includes(STAGE.toLocaleLowerCase())) {
   config = {
     host: process.env.PROD_MYSQL_HOST,
