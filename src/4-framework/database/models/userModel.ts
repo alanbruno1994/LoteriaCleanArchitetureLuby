@@ -3,6 +3,8 @@
 import { DataTypes, Model } from 'sequelize'
 import { sequelize } from '@framework/ultility/database'
 import { IUserEntity } from '@root/src/1-domain/entities/userEntity'
+import { AccessProfileModel } from './accessprofileModel'
+import { BetModel } from './betModel'
 
 export class UserModel extends Model {}
 
@@ -35,7 +37,7 @@ UserModel.init(
       type: DataTypes.STRING,
       allowNull: true
     },
-    token_recover_password_create_date: {
+    token_recover_password_expire_date: {
       type: DataTypes.DATE,
       allowNull: true
     },
@@ -75,3 +77,18 @@ UserModel.addHook('afterQuery',
   async (user: any): Promise<void> => {
     user.password = null
   })
+
+UserModel.belongsTo(AccessProfileModel, {
+  as: 'access',
+  foreignKey: 'access_profile_id'
+})
+
+AccessProfileModel.hasMany(UserModel, {
+  as: 'users',
+  foreignKey: 'access_profile_id'
+})
+
+UserModel.hasMany(BetModel, {
+  as: 'bets',
+  foreignKey: 'user_id'
+})
