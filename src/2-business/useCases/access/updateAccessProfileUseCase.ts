@@ -3,7 +3,6 @@ import { IWhere } from '@business/repositories/where'
 import { left, right } from '@shared/either'
 import { inject, injectable } from 'inversify'
 import { IAbstractUseCase } from '../abstractUseCase'
-import { InputUpdateGameDto } from '@business/dto/game/update'
 import { AccessProfileEntityKeys, IAccessProfileRepository, IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { InputUpdateAccessProfileDto, IOutputUpdateAccessProfileDto } from '@business/dto/access/update'
 import { AccessProfileEntity } from '@domain/entities/accessProfileEntity'
@@ -11,7 +10,7 @@ import { AccessProfileErrors } from '@business/modules/errors/access/accessProfi
 
 @injectable()
 export class UpdateAccessProfileUseCase
-implements IAbstractUseCase<InputUpdateGameDto, IOutputUpdateAccessProfileDto> {
+implements IAbstractUseCase<InputUpdateAccessProfileDto, IOutputUpdateAccessProfileDto> {
   constructor (
     @inject(IAccessProfileRepositoryToken) private readonly accessRepository: IAccessProfileRepository
   ) {}
