@@ -45,6 +45,8 @@ implements IAbstractUseCase<InputUpdateUserDto, IOutputUpdateUserDto> {
           access_profile_id: user.access_profile_id,
           name: user.name,
           password: userPassword,
+          token_recover_password: user.token_recover_password,
+          token_recover_password_expire_date: user.token_recover_password_expire_date,
           updated_at: user.updated_at
         },
         updateWhere
