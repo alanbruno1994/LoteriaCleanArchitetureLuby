@@ -51,7 +51,6 @@ export class UserRepository implements IUserRepository {
 
   async update (input: IInputUpdateUser): Promise<Partial<IUserEntity> | void> {
     const { newData, updateWhere } = input
-
     await this.userModel.update(newData, {
       where: { [updateWhere.column]: updateWhere.value }
     })
@@ -76,9 +75,25 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  async findAll (): Promise<Array<Omit<IUserEntity, 'password'>> | void> {
+  async findAll (relations?: Array<IRelation<string, UserEntityKeys>>): Promise<Array<Omit<IUserEntity, 'password'>> | void> {
     try {
-      const usersResult = await this.userModel.findAll()
+      if (relations) {
+        relations = relations.map(value => {
+          if (value.tableName === 'access_profiles') {
+            value.tableName = 'access'
+            return value
+          }
+          return value
+        })
+      }
+      const usersResult = await this.userModel.findAll(
+        {
+          include:
+          relations?.map((relation) => ({
+            association: relation.tableName
+          }))
+        }
+      )
       return usersResult
     } catch (error) {
       console.error(error)
