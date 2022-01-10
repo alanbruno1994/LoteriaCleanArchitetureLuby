@@ -9,7 +9,7 @@ export type IOutputVerifyAuthenticateUseCase = Either<
 IError,
 {
   verify: boolean
-  secure_id: string
-  id: number
+  user_secure_id: string
+  user_id: number
 }
 >
