@@ -42,7 +42,7 @@ export class GameEntity extends AbstractEntity<IGameEntity> {
     return right(game)
   }
 
-  static update (props: Partial<IUserEntity>): Right<void, GameEntity> {
+  static update (props: Partial<IGameEntity>): Right<void, GameEntity> {
     const currentDate = new Date()// pega a data atual
 
     const game = new GameEntity({
