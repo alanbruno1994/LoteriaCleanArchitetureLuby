@@ -5,7 +5,7 @@ import { Right, right } from '@shared/either'
 import { IUserEntity } from './userEntity'
 
 export interface IAccessProfileEntityRelations { // Aqui serve para definir as relacoes da entidade
-  user: IUserEntity
+  users: IUserEntity
 }
 
 export interface IAccessProfileEntity extends ITimestamps, Partial<IAccessProfileEntityRelations>{
