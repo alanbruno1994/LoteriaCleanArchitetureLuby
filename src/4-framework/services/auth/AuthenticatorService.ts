@@ -1,7 +1,4 @@
-import {
-  IAuthenticatorService,
-  ITokenVerifyFormat
-} from '@root/src/2-business/services/authenticator/iAuthenticator'
+import { IAuthenticatorService } from '@root/src/2-business/services/authenticator/iAuthenticator'
 import { IError } from '@shared/iError'
 import { injectable } from 'inversify'
 import JWT from 'jsonwebtoken'
@@ -21,11 +18,12 @@ export class AuthenticatorService implements IAuthenticatorService {
     return token
   }
 
-  async verify (token: string): Promise<ITokenVerifyFormat | IError> {
+  async verify (token: string): Promise<{verify: boolean
+    user_secure_id: string
+    user_id: number} | IError> {
     try {
-      const tokenPayload = JWT.verify(token, secret) as ITokenVerifyFormat
-
-      return tokenPayload
+      const tokenPayload: any = JWT.verify(token, secret)
+      return { ...tokenPayload,verify: true }
     } catch (error) {
       if (error instanceof JWT.TokenExpiredError) {
         return AuthErrors.tokenExpired()
