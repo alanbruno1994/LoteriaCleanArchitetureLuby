@@ -1,5 +1,9 @@
 import { IAuthenticatorService, IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { IMailServiceToken } from '@business/services/mail/iMail'
+import { ITimeServiceToken } from '@business/services/time/iTime'
 import { AuthenticatorService } from '@framework/services/auth/AuthenticatorService'
+import { MailService } from '@framework/services/mail/mail'
+import { TimeService } from '@framework/services/time/timeService'
 import {
   IHasherService,
   IHasherServiceToken
@@ -18,4 +22,6 @@ export const servicesModule = new ContainerModule((bind: interfaces.Bind) => {
     UniqueIdentifierService
   )
   bind<IAuthenticatorService>(IAuthenticatorServiceToken).to(AuthenticatorService)
+  bind(IMailServiceToken).to(MailService)
+  bind(ITimeServiceToken).to(TimeService)
 })

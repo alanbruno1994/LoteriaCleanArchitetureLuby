@@ -1,9 +1,11 @@
+import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
 import { CreateAccessProfileUseCase } from '@business/useCases/access/createAccessProfileUseCase'
 import { DeleteAccessProfileUseCase } from '@business/useCases/access/deleteAccessProfileUseCase'
 import { FindAccessProfileByUseCase } from '@business/useCases/access/findAccessProfileByUseCase'
 import { FindAllAccessProfileUseCase } from '@business/useCases/access/findAllAccessProfileUseCase'
 import { UpdateAccessProfileUseCase } from '@business/useCases/access/updateAccessProfileUseCase'
 import { CreateTokenUseCase } from '@business/useCases/authentication/createToken'
+import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { CreateBetUseCase } from '@business/useCases/bet/createBetUseCase'
 import { DeleteBetUseCase } from '@business/useCases/bet/deleteBetUseCase'
 import { FindAllBetsUseCase } from '@business/useCases/bet/findAllBetUseCase'
@@ -18,6 +20,7 @@ import { CreateUserUseCase } from '@business/useCases/user/createUserUseCase'
 import { DeleteUserUseCase } from '@business/useCases/user/deleteUserUseCase'
 import { FindAllUsersUseCase } from '@business/useCases/user/findAllUsersUseCase'
 import { FindUserByUseCase } from '@business/useCases/user/findUserByUseCase'
+import { SendMailUseCase } from '@business/useCases/user/sendMailUseCase'
 import { UpdateUserUseCase } from '@business/useCases/user/updateUserUseCase'
 import { ContainerModule, interfaces } from 'inversify'
 
@@ -43,4 +46,7 @@ export const useCaseModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(UpdateAccessProfileUseCase).to(UpdateAccessProfileUseCase)
   bind(DeleteAccessProfileUseCase).to(DeleteAccessProfileUseCase)
   bind(FindAllAccessProfileUseCase).to(FindAllAccessProfileUseCase)
+  bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
+  bind(AuthorizeAccessProfileUseCase).to(AuthorizeAccessProfileUseCase)
+  bind(SendMailUseCase).to(SendMailUseCase)
 })

@@ -19,6 +19,8 @@ import { CreateUserPlayerOperator } from '@controller/operations/user/createUser
 import { DeleteUserOperator } from '@controller/operations/user/deleteUser'
 import { FindAllUsersOperator } from '@controller/operations/user/findAllUsers'
 import { FindOneUserOperator } from '@controller/operations/user/findOneUser'
+import { RecoverPasswordOperator } from '@controller/operations/user/recoverPassword'
+import { UpdatePasswordOperator } from '@controller/operations/user/updatePassword'
 import { UpdateUserOperator } from '@controller/operations/user/updateUser'
 import { ContainerModule, interfaces } from 'inversify'
 
@@ -49,4 +51,6 @@ export const operatorModule = new ContainerModule((bind: interfaces.Bind) => {
   bind(UpdateAccessProfileOperator).to(UpdateAccessProfileOperator)
 
   bind(CreateAuthenticationOperator).to(CreateAuthenticationOperator)
+  bind(RecoverPasswordOperator).to(RecoverPasswordOperator)
+  bind(UpdatePasswordOperator).to(UpdatePasswordOperator)
 })
