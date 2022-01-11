@@ -3,6 +3,7 @@ import { IAccessProfileRepositoryToken } from '@business/repositories/accessprof
 import { IBetRepositoryToken } from '@business/repositories/bet/iBetRepository'
 import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
 import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
+import { IServiceDataSendToken } from '@business/services/microservices/iServiceDataSend'
 import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
 import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { DeleteBetUseCase } from '@business/useCases/bet/deleteBetUseCase'
@@ -15,6 +16,7 @@ import { FakeAccessProfileRepository } from '@tests/mock/fakes/repositories/fake
 import { FakeBetRepository, fakeBetRepositoryDelete, fakeBetRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeBetRepository'
 import { FakeUserRepository } from '@tests/mock/fakes/repositories/fakeUserRepository'
 import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeAuthenticatorService'
+import { FakeServiceDataSendBet } from '@tests/mock/fakes/services/fakeServiceDataSendBet'
 import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
 
 const token_fake = 'token_valid_fake'
@@ -31,6 +33,7 @@ describe('Delete bet operator', () => {
     container.bind(VerifyTokenUseCase).to(VerifyTokenUseCase)
     container.bind(IAccessProfileRepositoryToken).to(FakeAccessProfileRepository)
     container.bind(IUserRepositoryToken).to(FakeUserRepository)
+    container.bind(IServiceDataSendToken).to(FakeServiceDataSendBet)
   })
 
   afterAll(() => {

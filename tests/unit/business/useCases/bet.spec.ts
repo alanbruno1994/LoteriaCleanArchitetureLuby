@@ -5,6 +5,7 @@
 
 import { BetErrors } from '@business/modules/errors/bet/betErrors'
 import { IBetRepositoryToken } from '@business/repositories/bet/iBetRepository'
+import { IServiceDataSendToken } from '@business/services/microservices/iServiceDataSend'
 import { IUniqueIdentifierServiceToken } from '@business/services/uniqueIdentifier/iUniqueIdentifier'
 import { CreateBetUseCase } from '@business/useCases/bet/createBetUseCase'
 import { DeleteBetUseCase } from '@business/useCases/bet/deleteBetUseCase'
@@ -14,6 +15,7 @@ import { UpdateBetUseCase } from '@business/useCases/bet/updateBetUseCase'
 import { container } from '@shared/ioc/container'
 import { fakeBetEntity, fakeBetsList, fakeNewBet } from '@tests/mock/fakes/entities/fakeBetEntity'
 import { FakeBetRepository, fakeBetRepositoryDelete, fakeBetRepositoryFindAll, fakeBetRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeBetRepository'
+import { FakeServiceDataSendBet } from '@tests/mock/fakes/services/fakeServiceDataSendBet'
 import { FakeUniqueIdentifierService } from '@tests/mock/fakes/services/fakeUniqueIdentifierService'
 
 describe('Bet use cases', () => {
@@ -29,6 +31,7 @@ describe('Bet use cases', () => {
     container.bind(UpdateBetUseCase).to(UpdateBetUseCase)
     container.bind(DeleteBetUseCase).to(DeleteBetUseCase)
     container.bind(IBetRepositoryToken).to(FakeBetRepository)
+    container.bind(IServiceDataSendToken).to(FakeServiceDataSendBet)
     container
       .bind(IUniqueIdentifierServiceToken)
       .to(FakeUniqueIdentifierService)
