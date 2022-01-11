@@ -8,7 +8,7 @@
     "test:verbose": "STAGE=test jest --passWithNoTests --runInBand --forceExit",
     "test:unit": "STAGE=tes npm test -- --watch -c jest-unit-config.js",
     "test:integration": "STAGE=test npm test -- --watch -c jest-integration-config.js",
-    "test:staged": "STAGE=test npm test -- --findRelatedTests",
+    "test:staged": "STAGE=test npm test -- --findRelatedTests -c jest-unit-config.js",
     "test:ci": "STAGE=test npm test -- --coverage",
     "prepare": "husky install",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules -r tsconfig-paths/register src/4-framework/server.ts",
@@ -22,8 +22,7 @@
     "class-validator": "^0.13.2",
     "dotenv": "^10.0.0",
     "edge.js": "^5.3.2",
-    "express": "^4.17.2",
-    "git-commit-msg-linter": "^3.2.8",
+    "express": "^4.17.2",  
     "inversify": "^6.0.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
@@ -57,5 +56,6 @@
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.12.0",
     "typescript": "^4.5.4"
+  
   }
 }
