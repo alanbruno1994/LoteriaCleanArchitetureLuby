@@ -1,4 +1,4 @@
-import { BetEntity } from '@domain/entities/betEntity'
+import { BetEntity } from '@domain/entities'
 import { fakeCreatedBetEntity } from '@tests/mock/fakes/entities/fakeBetEntity'
 
 describe('Bet entity', () => {

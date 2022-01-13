@@ -1,107 +1,17 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 import '@framework/ioc/inversify.config'
-import { container } from '@shared/ioc/container'
-import { FindAllAccessProfileOperator } from '@controller/operations/access/findAllAccess'
-import { FindOneAccessProfileOperator } from '@controller/operations/access/findOneAccess'
-import { CreateAccessProlfileOperator } from '@controller/operations/access/createAccess'
-import { InputByAccessProfile } from '@controller/serializers/access/inputByAccessProfile'
-import { InputCreateAccessProfile } from '@controller/serializers/access/inputCreateAccessProfile'
-import { UpdateAccessProfileOperator } from '@controller/operations/access/updateAccess'
-import { DeleteAccessProfileOperator } from '@controller/operations/access/deleteAccess'
-import { InputDeleteAccessProfile } from '@controller/serializers/access/inputDeleteAccessProfile'
-import { InputUpdateAccessProfile } from '@controller/serializers/access/inputUpdateAccessProfile'
-import { IError } from '@shared/iError'
+import { CreateAccessProlfileOperatorAdapter, DeleteAccessProfileOperatorAdapter, FindAllAccessProfileOperatorAdapter, FindOneAccessProfileOperatorAdapter, UpdateAccessProfileOperatorAdapter } from '@framework/adapter/operators/access'
 const routeAccessProfile = Router() // Aqui é usado para registrar as rotas
 
-routeAccessProfile.get('/access', async (req: Request,res: Response) => {
-  try {
-    const operator = container.get(FindAllAccessProfileOperator)
-    const token = ('' + req.headers.authorization).replace('Bearer ','')
-    const accesss = await operator.run(token,!!req.query.all)
-    if (accesss.isLeft()) {
-      return res.status(accesss.value.statusCode).send(accesss.value.body)
-    }
-    return res.status(200).send(accesss.value)
-  } catch (error) {
-    if (error instanceof IError) {
-      return res.status(error.statusCode).send(error.body)
-    }
-    return res.status(500).send('Internal server error!')
-  }
-})
+routeAccessProfile.get('/access',FindAllAccessProfileOperatorAdapter.exec)
 
-routeAccessProfile.get('/access/:secureId', async (req: Request,res: Response) => {
-  try {
-    const operator = container.get(FindOneAccessProfileOperator)
-    const input = new InputByAccessProfile({ secure_id: req.params.secureId })
-    const token = ('' + req.headers.authorization).replace('Bearer ','')
-    const accesss = await operator.run(input,token)
-    if (accesss.isLeft()) {
-      return res.status(accesss.value.statusCode).send(accesss.value.body)
-    }
-    return res.status(200).send(accesss.value)
-  } catch (error) {
-    if (error instanceof IError) {
-      return res.status(error.statusCode).send(error.body)
-    }
-    return res.status(500).send('Internal server error!')
-  }
-})
+routeAccessProfile.get('/access/:secureId',FindOneAccessProfileOperatorAdapter.exec)
 
-routeAccessProfile.post('/access', async (req: Request,res: Response) => {
-  try {
-    const operator = container.get(CreateAccessProlfileOperator)
-    const input = new InputCreateAccessProfile(req.body)
-    const token = ('' + req.headers.authorization).replace('Bearer ','')
-    const accesss = await operator.run(input,token)
-    if (accesss.isLeft()) {
-      return res.status(accesss.value.statusCode).send(accesss.value.body)
-    }
-    return res.status(200).send(accesss.value)
-  } catch (error) {
-    if (error instanceof IError) {
-      return res.status(error.statusCode).send(error.body)
-    }
-    console.log(error)
-    return res.status(500).send('Internal server error!')
-  }
-})
+routeAccessProfile.post('/access', CreateAccessProlfileOperatorAdapter.exec)
 
-routeAccessProfile.put('/access/:secure_id', async (req: Request,res: Response) => {
-  try {
-    const operator = container.get(UpdateAccessProfileOperator)
-    const input = new InputUpdateAccessProfile(req.body)
-    const token = ('' + req.headers.authorization).replace('Bearer ','')
-    const accesss = await operator.run(input,req.params.secure_id,token)
-    if (accesss.isLeft()) {
-      return res.status(accesss.value.statusCode).send(accesss.value.body)
-    }
-    return res.status(200).send(accesss.value)
-  } catch (error) {
-    if (error instanceof IError) {
-      return res.status(error.statusCode).send(error.body)
-    }
-    return res.status(500).send('Internal server error!')
-  }
-})
+routeAccessProfile.put('/access/:secure_id', UpdateAccessProfileOperatorAdapter.exec)
 
-routeAccessProfile.delete('/access/:secure_id', async (req: Request,res: Response) => {
-  try {
-    const operator = container.get(DeleteAccessProfileOperator)
-    const input = new InputDeleteAccessProfile({ secure_id: req.params.secure_id })
-    const token = ('' + req.headers.authorization).replace('Bearer ','')
-    const accesss = await operator.run(input,token)
-    if (accesss.isLeft()) {
-      return res.status(accesss.value.statusCode).send(accesss.value.body)
-    }
-    return res.status(200).send(accesss.value)
-  } catch (error) {
-    if (error instanceof IError) {
-      return res.status(error.statusCode).send(error.body)
-    }
-    return res.status(500).send('Internal server error!')
-  }
-})
+routeAccessProfile.delete('/access/:secure_id',DeleteAccessProfileOperatorAdapter.exec)
 
 export default routeAccessProfile

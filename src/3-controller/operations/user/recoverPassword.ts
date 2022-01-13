@@ -1,13 +1,11 @@
 import { ITimeService, ITimeServiceToken } from '@business/services/time/iTime'
-import { InputRecoverPassword } from '@controller/serializers/user/inputRecoverPassword'
+import { FindUserByUseCase, SendMailUseCase, UpdateUserUseCase } from '@business/useCases/user'
+import { InputRecoverPassword } from '@controller/serializers/user'
 import { IOutputSendMailDto } from '@root/src/2-business/dto/user/sendMail'
 import {
   IUniqueIdentifierService,
   IUniqueIdentifierServiceToken
 } from '@root/src/2-business/services/uniqueIdentifier/iUniqueIdentifier'
-import { FindUserByUseCase } from '@root/src/2-business/useCases/user/findUserByUseCase'
-import { SendMailUseCase } from '@root/src/2-business/useCases/user/sendMailUseCase'
-import { UpdateUserUseCase } from '@root/src/2-business/useCases/user/updateUserUseCase'
 import { left } from '@shared/either'
 import { inject, injectable } from 'inversify'
 import { AbstractOperator } from '../abstractOperator'

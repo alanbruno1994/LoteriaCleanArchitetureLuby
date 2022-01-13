@@ -2,7 +2,7 @@ import { AccessProfileErrors } from '@business/modules/errors/access/accessProfi
 import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
 import { FindAccessProfileByUseCase } from '@business/useCases/access/findAccessProfileByUseCase'
 import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
-import { InputByAccessProfile } from '@controller/serializers/access/inputByAccessProfile'
+import { InputByAccessProfile } from '@controller/serializers/access'
 import { IAccessProfileEntity } from '@domain/entities/accessProfileEntity'
 import { Either, left, right } from '@shared/either'
 import { IError } from '@shared/iError'

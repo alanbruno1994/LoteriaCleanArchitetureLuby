@@ -1,4 +1,4 @@
-import { AccessProfileEntity } from '@domain/entities/accessProfileEntity'
+import { AccessProfileEntity } from '@domain/entities'
 import { fakeCreatedAccessProfileEntity } from '@tests/mock/fakes/entities/fakeAccessProfileEntity'
 
 describe('AccessProfile entity', () => {

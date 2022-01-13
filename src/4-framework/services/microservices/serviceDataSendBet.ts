@@ -12,13 +12,16 @@ export class ServiceDataSendBet implements IServiceDataSend<IBetEntity> {
     })
     const producer = kafka.producer()
     await producer.connect()
-    delete data.created_at
-    delete data.updated_at
     await producer.send({
       topic: 'bet_delete',
       messages: [
         {
-          value: JSON.stringify(data)
+          value: JSON.stringify({
+            game_id: data.game_id,
+            user_id: data.user_id,
+            number_choose: data.number_choose,
+            price_game: data.price_game
+          })
         }
       ]
     })

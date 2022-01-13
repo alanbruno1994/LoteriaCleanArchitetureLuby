@@ -1,16 +1,7 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* eslint-disable no-void */
-// Make sure that container is first called, reflect-metada is important for decorators which are used in subsequent imports
-
 import { GameErrors } from '@business/modules/errors/game/gameErrors'
 import { IGameRepositoryToken } from '@business/repositories/game/iGameRepository'
 import { IUniqueIdentifierServiceToken } from '@business/services/uniqueIdentifier/iUniqueIdentifier'
-import { CreateGameUseCase } from '@business/useCases/game/createGameUseCase'
-import { DeleteGameUseCase } from '@business/useCases/game/deleteGameUseCase'
-import { FindAllGamesUseCase } from '@business/useCases/game/findAllGameUseCase'
-import { FindGameByUseCase } from '@business/useCases/game/findGameByUseCase'
-import { UpdateGameUseCase } from '@business/useCases/game/updateGameUseCase'
+import { CreateGameUseCase, DeleteGameUseCase, FindAllGamesUseCase, FindGameByUseCase, UpdateGameUseCase } from '@business/useCases/game'
 import { container } from '@shared/ioc/container'
 import { fakeGameEntity, fakeGameList, fakeNewGame } from '@tests/mock/fakes/entities/fakeGameEntity'
 import { FakeGameRepository, fakeGameRepositoryDelete, fakeGameRepositoryFindAll, fakeGameRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeGameRepository'

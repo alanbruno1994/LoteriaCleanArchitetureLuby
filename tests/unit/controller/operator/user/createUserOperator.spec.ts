@@ -3,16 +3,11 @@ import { container } from '@shared/ioc/container'
 import { IUserRepositoryToken } from '@root/src/2-business/repositories/user/iUserRepository'
 import { IHasherServiceToken } from '@root/src/2-business/services/hasher/iHasher'
 import { IUniqueIdentifierServiceToken } from '@root/src/2-business/services/uniqueIdentifier/iUniqueIdentifier'
-import { CreateUserUseCase } from '@root/src/2-business/useCases/user/createUserUseCase'
 import {
   FakeUserRepository, fakeUserRepositoryCreate, fakeUserRepositoryFindBy
 } from '@tests/mock/fakes/repositories/fakeUserRepository'
 import { FakeHasherService } from '@tests/mock/fakes/services/fakeHasherService'
 import { FakeUniqueIdentifierService } from '@tests/mock/fakes/services/fakeUniqueIdentifierService'
-import { FindUserByUseCase } from '@root/src/2-business/useCases/user/findUserByUseCase'
-import { FindAccessProfileByUseCase } from '@business/useCases/access/findAccessProfileByUseCase'
-import { CreateUserAdminOperator } from '@controller/operations/user/createUserAdmin'
-import { CreateUserPlayerOperator } from '@controller/operations/user/createUserPlayer'
 import { FakeAccessProfileRepository, fakeAccessProfileRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeAccessRepository'
 import { fakeUserEntityAdmin, fakeUserEntityPlayer } from '@tests/mock/fakes/entities/fakeUserEntity'
 import { InputCreateUser } from '@controller/serializers/user/inputCreateUser'
@@ -25,6 +20,9 @@ import { FakerAuthenticatorServiceToken } from '@tests/mock/fakes/services/fakeA
 import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
 import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
 import { FakerAuthorizeAccessProfileUseCase } from '@tests/mock/fakes/useCases/fakeAuthenticatorService'
+import { CreateUserUseCase, FindUserByUseCase } from '@business/useCases/user'
+import { FindAccessProfileByUseCase } from '@business/useCases/access'
+import { CreateUserAdminOperator, CreateUserPlayerOperator } from '@controller/operations/user'
 
 const token_fake = 'token_valid_fake'
 describe('Create user operator', () => {

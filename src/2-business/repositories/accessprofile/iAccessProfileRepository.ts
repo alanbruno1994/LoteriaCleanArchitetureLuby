@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
-import { IAccessProfileEntity } from '@domain/entities/accessProfileEntity'
 import { IRelation } from '../relation'
 import { IWhere } from '../where'
 import 'reflect-metadata'
+import { IAccessProfileEntity } from '@domain/entities'
 // Isso aqui serve para dizer que tipos de elementos
 // serao usado como uma chave para um consulta de dados
 // por exemplo

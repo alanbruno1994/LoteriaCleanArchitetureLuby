@@ -6,7 +6,7 @@ import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authori
 import { FindAccessProfileByUseCase } from '@business/useCases/access/findAccessProfileByUseCase'
 import { UpdateAccessProfileUseCase } from '@business/useCases/access/updateAccessProfileUseCase'
 import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
-import { InputUpdateAccessProfile } from '@controller/serializers/access/inputUpdateAccessProfile'
+import { InputUpdateAccessProfile } from '@controller/serializers/access'
 import { left, right } from '@shared/either'
 import { inject, injectable } from 'inversify'
 import { AbstractOperator } from '../abstractOperator'

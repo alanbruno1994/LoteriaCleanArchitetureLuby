@@ -1,17 +1,8 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* eslint-disable no-void */
-// Make sure that container is first called, reflect-metada is important for decorators which are used in subsequent imports
-
 import { BetErrors } from '@business/modules/errors/bet/betErrors'
 import { IBetRepositoryToken } from '@business/repositories/bet/iBetRepository'
 import { IServiceDataSendToken } from '@business/services/microservices/iServiceDataSend'
 import { IUniqueIdentifierServiceToken } from '@business/services/uniqueIdentifier/iUniqueIdentifier'
-import { CreateBetUseCase } from '@business/useCases/bet/createBetUseCase'
-import { DeleteBetUseCase } from '@business/useCases/bet/deleteBetUseCase'
-import { FindAllBetsUseCase } from '@business/useCases/bet/findAllBetUseCase'
-import { FindBetByUseCase } from '@business/useCases/bet/findBetByUseCase'
-import { UpdateBetUseCase } from '@business/useCases/bet/updateBetUseCase'
+import { CreateBetUseCase, DeleteBetUseCase, FindAllBetsUseCase, FindBetByUseCase, UpdateBetUseCase } from '@business/useCases/bet'
 import { container } from '@shared/ioc/container'
 import { fakeBetEntity, fakeBetsList, fakeNewBet } from '@tests/mock/fakes/entities/fakeBetEntity'
 import { FakeBetRepository, fakeBetRepositoryDelete, fakeBetRepositoryFindAll, fakeBetRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeBetRepository'

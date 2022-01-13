@@ -1,6 +1,6 @@
 import { IOutputFindAllGameDto } from '@business/dto/game/findAll'
-import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
-import { FindAllGamesUseCase } from '@business/useCases/game/findAllGameUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication'
+import { FindAllGamesUseCase } from '@business/useCases/game'
 import { left, right } from '@shared/either'
 import { inject, injectable } from 'inversify'
 import { AbstractOperator } from '../abstractOperator'

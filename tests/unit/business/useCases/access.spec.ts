@@ -1,15 +1,7 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* eslint-disable no-void */
-// Make sure that container is first called, reflect-metada is important for decorators which are used in subsequent imports
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
 import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { IUniqueIdentifierServiceToken } from '@business/services/uniqueIdentifier/iUniqueIdentifier'
-import { CreateAccessProfileUseCase } from '@business/useCases/access/createAccessProfileUseCase'
-import { DeleteAccessProfileUseCase } from '@business/useCases/access/deleteAccessProfileUseCase'
-import { FindAccessProfileByUseCase } from '@business/useCases/access/findAccessProfileByUseCase'
-import { FindAllAccessProfileUseCase } from '@business/useCases/access/findAllAccessProfileUseCase'
-import { UpdateAccessProfileUseCase } from '@business/useCases/access/updateAccessProfileUseCase'
+import { CreateAccessProfileUseCase, DeleteAccessProfileUseCase, FindAccessProfileByUseCase, FindAllAccessProfileUseCase, UpdateAccessProfileUseCase } from '@business/useCases/access'
 import { container } from '@shared/ioc/container'
 import { fakeAccessProfileEntity, fakeAccessProfileList, fakeNewAccessProfile } from '@tests/mock/fakes/entities/fakeAccessProfileEntity'
 import { FakeAccessProfileRepository, fakeAccessProfileRepositoryDelete, fakeAccessProfileRepositoryFindAll, fakeAccessProfileRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeAccessRepository'

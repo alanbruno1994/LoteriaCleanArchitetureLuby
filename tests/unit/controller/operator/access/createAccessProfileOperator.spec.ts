@@ -1,4 +1,3 @@
-/* eslint-disable no-void */
 import { container } from '@shared/ioc/container'
 import { IUniqueIdentifierServiceToken } from '@root/src/2-business/services/uniqueIdentifier/iUniqueIdentifier'
 import { FakeUniqueIdentifierService } from '@tests/mock/fakes/services/fakeUniqueIdentifierService'

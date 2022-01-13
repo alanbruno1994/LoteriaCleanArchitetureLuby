@@ -1,6 +1,6 @@
 import { IOutputFindAllBetDto } from '@business/dto/bet/findAll'
-import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
-import { FindAllBetsUseCase } from '@business/useCases/bet/findAllBetUseCase'
+import { VerifyTokenUseCase } from '@business/useCases/authentication'
+import { FindAllBetsUseCase } from '@business/useCases/bet'
 import { left, right } from '@shared/either'
 import { inject, injectable } from 'inversify'
 import { AbstractOperator } from '../abstractOperator'

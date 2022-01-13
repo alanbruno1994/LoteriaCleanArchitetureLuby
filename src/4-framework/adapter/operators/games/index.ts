@@ -1,0 +1,5 @@
+export * from './CreateGameOperatorAdapter'
+export * from './DeleteGameOperatorAdapter'
+export * from './FindAllGamesOperatorAdapter'
+export * from './FindOneGameOperatorAdapter'
+export * from './UpdateGameOperatorAdapter'

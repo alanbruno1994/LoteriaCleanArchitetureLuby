@@ -1,11 +1,9 @@
-/* eslint-disable no-void */
 import { AccessProfileErrors } from '@business/modules/errors/access/accessProfileErrors'
 import { IAccessProfileRepositoryToken } from '@business/repositories/accessprofile/iAccessProfileRepository'
 import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
 import { IAuthenticatorServiceToken } from '@business/services/authenticator/iAuthenticator'
-import { AuthorizeAccessProfileUseCase } from '@business/useCases/access/authorizeAccessProfileUseCase'
-import { FindAllAccessProfileUseCase } from '@business/useCases/access/findAllAccessProfileUseCase'
-import { VerifyTokenUseCase } from '@business/useCases/authentication/verifyToken'
+import { AuthorizeAccessProfileUseCase, FindAllAccessProfileUseCase } from '@business/useCases/access'
+import { VerifyTokenUseCase } from '@business/useCases/authentication'
 import { FindAllAccessProfileOperator } from '@controller/operations/access/findAllAccess'
 import { container } from '@shared/ioc/container'
 import { fakeAccessProfileList } from '@tests/mock/fakes/entities/fakeAccessProfileEntity'

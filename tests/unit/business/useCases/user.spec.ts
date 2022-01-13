@@ -1,16 +1,8 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* eslint-disable no-void */
-// Make sure that container is first called, reflect-metada is important for decorators which are used in subsequent imports
 import { UserErrors } from '@business/modules/errors/user/userErrors'
 import { IUserRepositoryToken } from '@business/repositories/user/iUserRepository'
 import { IHasherServiceToken } from '@business/services/hasher/iHasher'
 import { IUniqueIdentifierServiceToken } from '@business/services/uniqueIdentifier/iUniqueIdentifier'
-import { CreateUserUseCase } from '@business/useCases/user/createUserUseCase'
-import { DeleteUserUseCase } from '@business/useCases/user/deleteUserUseCase'
-import { FindAllUsersUseCase } from '@business/useCases/user/findAllUsersUseCase'
-import { FindUserByUseCase } from '@business/useCases/user/findUserByUseCase'
-import { UpdateUserUseCase } from '@business/useCases/user/updateUserUseCase'
+import { CreateUserUseCase, DeleteUserUseCase, FindAllUsersUseCase, FindUserByUseCase, UpdateUserUseCase } from '@business/useCases/user'
 import { container } from '@shared/ioc/container'
 import { fakeNewUser, fakeUserEntityAdmin, fakeUsersList } from '@tests/mock/fakes/entities/fakeUserEntity'
 import { FakeUserRepository, fakeUserRepositoryDelete, fakeUserRepositoryFindAll, fakeUserRepositoryFindBy } from '@tests/mock/fakes/repositories/fakeUserRepository'
