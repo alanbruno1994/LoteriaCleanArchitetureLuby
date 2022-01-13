@@ -19,7 +19,8 @@
       "@typescript-eslint/no-var-requires": "off",
       "node/no-path-concat":"off",
       "@typescript-eslint/explicit-function-return-type": "off",
-      "import/export": "off"
+      "import/export": "off",
+      "@typescript-eslint/no-extraneous-class": "off"
     }    
   }
   
